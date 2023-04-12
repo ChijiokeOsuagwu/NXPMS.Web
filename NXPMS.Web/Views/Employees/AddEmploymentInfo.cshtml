@@ -1,0 +1,143 @@
+﻿@using NXPMS.Base.Enums
+@model NXPMS.Web.Models.EmployeesViewModels.EmployeeEmploymentInfoViewModel
+<div class="card mt-1">
+    <div class="card-header bg-success">
+        <h4 class="text-white">Manage Employee: Employment Info</h4>
+    </div>
+    <div class="card-body bg-secondary">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <form asp-controller="Employees" asp-action="AddEmploymentInfo" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="FullName" class="form-label text-white fw-bold"></label>
+                    <input asp-for="FullName" class="form-control" readonly="readonly">
+                    <div><span asp-validation-for="FullName" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <input type="hidden" asp-for="EmployeeID" />
+                    <label asp-for="EmployeeNo" class="form-label text-white fw-bold"></label>
+                    <input asp-for="EmployeeNo" class="form-control" placeholder="Employee No">
+                    <div><span asp-validation-for="EmployeeNo" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label asp-for="CustomNo" class="form-label text-white fw-bold"></label>
+                    <input asp-for="CustomNo" class="form-control" placeholder="Custom No">
+                    <div><span asp-validation-for="CustomNo" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="OfficialEmail" class="form-label text-white fw-bold"></label>
+                    <input asp-for="OfficialEmail" class="form-control" placeholder="Official Email">
+                    <div><span asp-validation-for="OfficialEmail" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label asp-for="EmployeeTypeID" class="form-label text-white fw-bold"></label>
+                    <select asp-for="EmployeeTypeID" asp-items="@ViewBag.TypesList" class="form-control">
+                        <option value="">- Select -</option>
+                    </select>
+                    <div><span asp-validation-for="EmployeeTypeID" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label asp-for="EmployeeStatus" class="form-label text-white fw-bold"></label>
+                    <select asp-for="EmployeeStatus" asp-items="@Html.GetEnumSelectList<EmploymentStatus>()" class="form-control">
+                        <option value="">Select</option>
+                    </select>
+                    <div><span asp-validation-for="EmployeeStatus" class="text-danger"></span></div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label asp-for="LocationID" class="form-label text-white fw-bold"></label>
+                    <select asp-for="LocationID" asp-items="@ViewBag.LocationsList" class="form-control">
+                        <option value="">- Select -</option>
+                    </select>
+                    <div><span asp-validation-for="LocationID" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label asp-for="UnitCode" class="form-label text-white fw-bold"></label>
+                    <select asp-for="UnitCode" asp-items="@ViewBag.UnitsList" class="form-control">
+                        <option value="">- Select -</option>
+                    </select>
+                    <div><span asp-validation-for="UnitCode" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label asp-for="PlaceOfEngagement" class="form-label text-white fw-bold"></label>
+                    <input asp-for="PlaceOfEngagement" class="form-control" placeholder="Place of Engagement">
+                    <div><span asp-validation-for="PlaceOfEngagement" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <label asp-for="StartUpDate" class="form-label text-white fw-bold"></label>
+                    <input asp-for="StartUpDate" class="form-control">
+                    <div><span asp-validation-for="StartUpDate" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="StartUpDesignation" class="form-label text-white fw-bold"></label>
+                    <input asp-for="StartUpDesignation" class="form-control" placeholder="Start Up Designation">
+                    <div><span asp-validation-for="StartUpDesignation" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="CurrentDesignation" class="form-label text-white fw-bold"></label>
+                    <input asp-for="CurrentDesignation" class="form-control" placeholder="Current Designation">
+                    <div><span asp-validation-for="CurrentDesignation" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label asp-for="ConfirmationDate" class="form-label text-white fw-bold"></label>
+                    <input asp-for="ConfirmationDate" class="form-control">
+                    <div><span asp-validation-for="ConfirmationDate" class="text-danger"></span></div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-12">
+                    <a asp-controller="Employees" asp-action="AddPersonalInfo" asp-route-id="@Model.EmployeeID" class="btn btn-dark" style="width:100px" title="Exit">
+                        <span class="text-white">Back</span>
+                    </a>
+                    <a asp-controller="Employees" asp-action="AddEmploymentInfo" asp-route-id="@Model.EmployeeID" class="btn btn-warning" style="width:100px" title="Clear">
+                        <span class="text-white">Clear</span>
+                    </a>
+                    @if (!Model.OperationIsSuccessful)
+                    {
+                        <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
+                    }
+
+                    @if (Model.OperationIsSuccessful)
+                    {
+                        <a asp-controller="Employees" asp-action="AddNextOfKinInfo" asp-route-id="@Model.EmployeeID" class="btn btn-info ml-3" style="width:200px" title="Continue To Add Next of Kin Info">
+                            <span class="text-white">Add Next-of-Kin Info</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

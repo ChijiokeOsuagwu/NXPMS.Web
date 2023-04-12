@@ -1,0 +1,111 @@
+﻿
+@model NXPMS.Web.Models.SecurityModels.UserListViewModel
+@{
+    ViewData["Title"] = "Next HR | Users";
+}
+<div class="container">
+    <h4>Users</h4>
+    <hr />
+    <div class="mb-1">
+        <form asp-controller="Security" asp-action="Users" method="get">
+            <a asp-controller="Security" asp-action="Index" class="btn btn-dark" style="width:100px" title="Click to Go Back">
+                <span class="text-white">Back</span>
+            </a>
+            <select name="id" asp-items="@ViewBag.LocationList" selected="@ViewBag.LocationID" class="border-0" style="width:250px">
+                <option value="">- Select Location -</option>
+            </select>
+            <input type="text" class="border-0 text-secondary fw-light" style="width:250px" name="sp" value="@ViewData["SearchString"]" placeholder=" Enter Text to Search..." />
+            <input type="submit" value="Search" class="btn btn-info mr-2" style="width:100px" />
+            @*<a asp-controller="Security" asp-action="ManageUser" asp-route-id="0" class="btn btn-success" style="width:100px" title="Click to Add New User">
+                <span class="text-white">New User</span>
+            </a>*@
+        </form>
+
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-hover table-sm ">
+                <thead class="table-dark">
+                    <tr>
+                        <th><span class="text-white fw-bold">#</span></th>
+                        <th><span class="text-white fw-bold">Full Name</span></th>
+                        <th><span class="text-white fw-bold">Username</span></th>
+                        <th><span class="text-white fw-bold">Sex</span></th>
+                        <th><span class="text-white fw-bold">Location</span></th>
+                        <th>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-success dropdown-toggle" type="button" id="dpdNewUser" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="text-white fw-bold">New User</span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dpdNewUser">
+                                    <li><a asp-controller="Security" asp-action="ManageUser" asp-route-id="0" class="dropdown-item">System User</a></li>
+                                    <li><a asp-controller="Security" asp-action="SelectEmployee" class="dropdown-item">Employee User</a></li>
+                                </ul>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table-secondary">
+                    @if (Model == null || Model.UserList == null || Model.UserList.Count < 1)
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div class="alert alert-info fade show" role="alert">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span class="fw-bold">No record was found.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        int rowNumber = 0;
+
+                        @foreach (var user in Model.UserList)
+                        {
+                            rowNumber++;
+                            <tr>
+                                <td class="p-2 border-1 border-light">@rowNumber.ToString()</td>
+                                <td class="p-2 border-1 border-light">
+                                    <span class="fw-bold">@user.FullName</span>
+                                </td>
+                                <td class="p-2 border-1 border-light">
+                                    <span class="fw-bold">@user.Username</span>
+                                </td>
+                                <td class="p-2 border-1 border-light">
+                                    <span class="fw-bold">@user.Sex</span>
+                                </td>
+                                <td class="p-2 border-1 border-light">
+                                    <span class="fw-bold">@user.LocationName</span>
+                                </td>
+                                <td class="p-2 border-1 border-light">
+                                    <div class="text-center">
+                                        <a asp-controller="Security" asp-action="UserInfo" asp-route-id="@user.Id" title="Show User Info" class="btn btn-xs btn-dark" >
+                                            <span class="text-white fw-bold">Select</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

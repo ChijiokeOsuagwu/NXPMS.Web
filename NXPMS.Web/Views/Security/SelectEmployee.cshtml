@@ -1,0 +1,94 @@
+﻿@model NXPMS.Web.Models.EmployeesViewModels.EmployeeSearchViewModel
+
+@{
+    ViewData["Title"] = "OfficeManager | Search Employees";
+}
+<div class="container">
+    <h3 class="mb-1">Search Employees</h3>
+    <hr />
+    <div class="mb-1">
+        <div class="mb-2">
+            <form asp-controller="Security" asp-action="SelectEmployee" method="get" autocomplete="off">
+                <a asp-controller="Security" asp-action="Index" class="btn btn-dark" style="width:100px" title="Exit">
+                    <span class="text-white">Exit</span>
+                </a>
+                <input asp-for="est" type="text" class="border-0" style="width:300px" placeholder="Enter text to search" />
+                <input type="submit" value="Search" class="btn btn-dark mr-1 text-white" style="width:100px" />
+            </form>
+
+            @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-x-circle"></i>
+                    <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+        <div class="row">
+            @if (Model.EmployeesList == null || Model.EmployeesList.Count < 1)
+            {
+                <div class="alert alert-info fade show" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    <span class="fw-bold">No record was found.</span>
+                </div>
+            }
+            else
+            {
+                <table class="table table-sm table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th><span class="text-white fw-bolder">Employee No</span></th>
+                            <th>
+                                <span class="text-white fw-bolder">Employee Name</span>
+                            </th>
+                            <th>
+                                <span class="text-white fw-bolder">Gender</span>
+                            </th>
+                            <th>
+                                <span class="text-white fw-bolder">Unit</span>
+                            </th>
+                            <th>
+                                <span class="text-white fw-bolder">Location</span>
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-success">
+                        @foreach (var item in Model.EmployeesList)
+                        {
+                            <tr>
+                                <td class="p-2">
+                                    <span class="fw-bolder">@item.EmployeeNo</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="fw-bolder">@item.FullName</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="fw-bolder">@item.Sex</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="fw-bolder">@item.UnitName</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="fw-bolder">@item.LocationName</span>
+                                </td>
+                                <td class="p-2">
+                                    <a asp-controller="Security" asp-action="ManageUser" asp-route-ed="@item.EmployeeID" title="Select" class="btn btn-sm btn-dark">
+                                        <span class="text-white fw-bold">Select</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/erm.js"></script>
+}

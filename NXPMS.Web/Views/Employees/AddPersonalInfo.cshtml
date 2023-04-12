@@ -1,0 +1,167 @@
+﻿
+@model NXPMS.Web.Models.EmployeesViewModels.EmployeePersonalInfoViewModel
+<div class="card mt-1">
+    <div class="card-header bg-success">
+        <h4 class="text-white">Manage Employee: Personal Info</h4>
+    </div>
+    <div class="card-body bg-secondary">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <form asp-controller="Employees" asp-action="AddPersonalInfo" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col-md-2 mb-1">
+                    <label asp-for="Title" class="form-label text-white fw-bold"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title">
+                    <div><span asp-validation-for="Title" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-10 mb-1">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="hidden" asp-for="EmployeeID" />
+                            <label asp-for="FirstName" class="form-label text-white fw-bold"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="First Name">
+                            <div><span asp-validation-for="FirstName" class="text-danger"></span></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Surname" class="form-label text-white fw-bold"></label>
+                            <input asp-for="Surname" class="form-control" placeholder="Last Name">
+                            <div><span asp-validation-for="Surname" class="text-danger"></span></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="OtherNames" class="form-label text-white fw-bold"></label>
+                            <input asp-for="OtherNames" class="form-control" placeholder="Other Names">
+                            <div><span asp-validation-for="OtherNames" class="text-danger"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 mb-1">
+                    <label asp-for="Sex" class="form-label text-white fw-bold"></label>
+                    <select asp-for="Sex" class="form-control">
+                        <option value="">Select </option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                    <div><span asp-validation-for="Sex" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-2 mb-1">
+                    <label asp-for="MaritalStatus" class="form-label text-white fw-bold"></label>
+                    <select asp-for="MaritalStatus" class="form-control">
+                        <option value="">- Select -</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                        <option value="Divorced">Divorced</option>
+                        <option value="Widowed">Widowed</option>
+                    </select>
+                    <div><span asp-validation-for="MaritalStatus" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label class="form-label text-white fw-bold">Date of Birth</label>
+                    <div class="form-control">
+                        <input asp-for="BirthDay" min="1" max="31" style="width:40px; border:none" placeholder="dd">&nbsp;
+                        <input asp-for="BirthMonth" min="1" max="12" style="width:40px; border:none" placeholder="mm">&nbsp;
+                        <input asp-for="BirthYear" min="1940" max="2050" style="width:70px; border:none" placeholder="yyyy">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label asp-for="PhoneNo" class="form-label text-white fw-bold"></label>
+                    <input asp-for="PhoneNo" class="form-control" placeholder="Phone Number">
+                    <div><span asp-validation-for="PhoneNo" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label asp-for="AltPhoneNo" class="form-label text-white fw-bold"></label>
+                    <input asp-for="AltPhoneNo" class="form-control" placeholder="Alt Phone Number">
+                    <div><span asp-validation-for="AltPhoneNo" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <label asp-for="PersonalEmail" class="form-label text-white fw-bold"></label>
+                    <input asp-for="PersonalEmail" class="form-control" placeholder="Personal Email">
+                    <div><span asp-validation-for="PersonalEmail" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label asp-for="LgaOfOrigin" class="form-label text-white fw-bold"></label>
+                    <input asp-for="LgaOfOrigin" class="form-control" placeholder="LGA of Origin">
+                    <div><span asp-validation-for="LgaOfOrigin" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label asp-for="StateOfOrigin" class="form-label text-white fw-bold"></label>
+                    <select asp-for="StateOfOrigin" asp-items="@ViewBag.StateList" class="form-control">
+                        <option value="">- Select -</option>
+                    </select>
+                    <div><span asp-validation-for="StateOfOrigin" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <label asp-for="Religion" class="form-label text-white fw-bold"></label>
+                    <select asp-for="Religion" class="form-control">
+                        <option value="">- Select -</option>
+                        <option value="Christian">Christian</option>
+                        <option value="Muslim">Muslim</option>
+                        <option value="Traditional">Traditional</option>
+                        <option value="Judaism">Judaism</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div><span asp-validation-for="Religion" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ResidenceAddress" class="form-label text-white fw-bold"></label>
+                    <textarea asp-for="ResidenceAddress" class="form-control" placeholder="Residence Address" rows="3">@Model.ResidenceAddress</textarea>
+                    <div><span asp-validation-for="ResidenceAddress" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PermanentHomeAddress" class="form-label text-white fw-bold"></label>
+                    <textarea asp-for="PermanentHomeAddress" class="form-control" placeholder="Permanent Home Address" rows="3">@Model.PermanentHomeAddress</textarea>
+                    <div><span asp-validation-for="PermanentHomeAddress" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a asp-controller="Employees" asp-action="Search" class="btn btn-dark" style="width:100px" title="Exit">
+                        <span class="text-white">Back</span>
+                    </a>
+                    <a asp-controller="Employees" asp-action="AddPersonalInfo" class="btn btn-warning" style="width:100px" title="Clear">
+                        <span class="text-white">Clear</span>
+                    </a>
+                    @if (!Model.OperationIsSuccessful)
+                    {
+                        <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
+                    }
+
+                    @if (Model.OperationIsSuccessful)
+                    {
+                        <a asp-controller="Employees" asp-action="AddEmploymentInfo" asp-route-id="@Model.EmployeeID" class="btn btn-success" style="width:150px" title="Continue To Add Employment Info">
+                            <span class="text-white">Continue</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
