@@ -13,6 +13,7 @@ namespace NXPMS.Base.Repositories.EmployeeRecordRepositories
 
         Task<IList<Employee>> GetByNameAsync(string fullname);
         Task<IList<Employee>> GetByIdAsync(int employeeId);
+        Task<EmployeeCardinal> GetEmployeeCardinalsByIdAsync(int employeeId);
         Task<IList<Employee>> FindByNameAsync(string fullname);
         Task<IList<Employee>> FindNonUsersByNameAsync(string fullname);
         Task<IList<Employee>> GetAllAsync();

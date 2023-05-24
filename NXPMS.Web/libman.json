@@ -5,6 +5,11 @@
     {
       "library": "jqueryui@1.13.2",
       "destination": "wwwroot/lib/jquery/jqueryui/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "bootstrap-icons@1.10.4",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }

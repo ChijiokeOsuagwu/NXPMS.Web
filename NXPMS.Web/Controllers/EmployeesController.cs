@@ -26,7 +26,8 @@ namespace NXPMS.Web.Controllers
             _employeeRecordService = employeeRecordService;
             _globalSettingsService = globalSettingsService;
         }
-
+        
+        #region Employee Read Controller Actions
         public IActionResult Records()
         {
             return View();
@@ -157,7 +158,9 @@ namespace NXPMS.Web.Controllers
             }
             return View(model);
         }
+#endregion
 
+        #region Employees Write Controller Actions
         public async Task<IActionResult> AddPersonalInfo(int? id = null)
         {
             EmployeePersonalInfoViewModel model = new EmployeePersonalInfoViewModel();
@@ -344,7 +347,82 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        #endregion
 
+        #region Employee Reports Controller Actions
+        public async Task<IActionResult> ReportingLines(int id)
+        {
+            EmployeeReportListViewModel model = new EmployeeReportListViewModel();
+            model.ID = id;
+            if (id > 0)
+            {
+                var entities = await _employeeRecordService.GetEmployeeReportsByEmployeeIdAsync(id);
+                if (entities != null && entities.Count > 0)
+                {
+                    model.EmployeeReportList = entities.ToList();
+                }
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> ManageReportingLine(int id, int? rd = null)
+        {
+            EmployeeReportLineViewModel model = new EmployeeReportLineViewModel();
+            model.EmployeeId = id;
+            if (rd != null && rd > 0)
+            {
+                EmployeeReport employeeReport = new EmployeeReport();
+                employeeReport = await _employeeRecordService.GetEmployeeReportByIdAsync(rd.Value);
+                model = model.ExtractToModel(employeeReport);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageReportingLine(EmployeeReportLineViewModel model)
+        {
+            EmployeeReport employeeReport = new EmployeeReport();
+            if (ModelState.IsValid)
+            {
+                Employee reportsToEmployee = new Employee();
+                employeeReport = model.ConvertToEmployeeReport();
+                reportsToEmployee = await _employeeRecordService.GetEmployeeByFullNameAsync(model.ReportsToName);
+                if (reportsToEmployee != null && reportsToEmployee.EmployeeID > 0)
+                {
+                    employeeReport.ReportsToDepartmentCode = reportsToEmployee.DepartmentCode;
+                    employeeReport.ReportsToDesignation = reportsToEmployee.CurrentDesignation;
+                    employeeReport.ReportsToId = reportsToEmployee.EmployeeID;
+                    employeeReport.ReportsToLocationId = reportsToEmployee.LocationID;
+                    employeeReport.ReportsToUnitCode = reportsToEmployee.UnitCode;
+                    bool IsSuccessful = await _employeeRecordService.AddEmployeeReportAsync(employeeReport);
+                    if (IsSuccessful)
+                    {
+                        model.OperationIsSuccessful = true;
+                        model.ViewModelSuccessMessage = "New Reporting Line added successfully!";
+                    }
+                    else
+                    {
+                        model.ViewModelSuccessMessage = "An error was encountered. Adding new Reporting Line failed.";
+                    }
+                }
+                else
+                {
+                    model.ViewModelErrorMessage = "No record was found for the selected Report.";
+                }
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> ShowReportingLine(int id)
+        {
+            EmployeeReportLineViewModel model = new EmployeeReportLineViewModel();
+            model.EmployeeId = id;
+            EmployeeReport employeeReport = new EmployeeReport();
+            employeeReport = await _employeeRecordService.GetEmployeeReportByIdAsync(id);
+            model = model.ExtractToModel(employeeReport);
+            return View(model);
+        }
+
+        #endregion
 
 
         //======================= Helper Action Methods ======================//

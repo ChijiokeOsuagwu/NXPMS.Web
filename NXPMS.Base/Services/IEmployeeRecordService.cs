@@ -24,6 +24,12 @@ namespace NXPMS.Base.Services
         Task<bool> UpdateEmployeeNextOfKinInfoAsync(Employee employee);
         #endregion
 
+        #region Employee Reports Service Methods
+        Task<List<EmployeeReport>> GetEmployeeReportsByEmployeeIdAsync(int employeeId);
+        Task<EmployeeReport> GetEmployeeReportByIdAsync(int employeeReportId);
+        Task<bool> AddEmployeeReportAsync(EmployeeReport employeeReport);
+        #endregion
+
         #region Employee Settings Service Methods
         Task<IList<EmployeeCategory>> GetAllEmployeeCategoriesAsync();
         Task<IList<EmployeeType>> GetAllEmployeeTypesAsync();

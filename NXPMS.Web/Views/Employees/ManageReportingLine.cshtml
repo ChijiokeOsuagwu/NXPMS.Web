@@ -1,0 +1,84 @@
+﻿@using NXPMS.Base.Enums
+@model NXPMS.Web.Models.EmployeesViewModels.EmployeeReportLineViewModel
+<div class="card mt-1" style="max-width:800px">
+    <div class="card-header bg-success">
+        <h4 class="text-white">Manage Reporting Line</h4>
+    </div>
+    <div class="card-body" style="background-color:#DCDCDC">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    <form asp-controller="Employees" asp-action="ManageReportingLine" method="post" autocomplete="off">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <input type="hidden" asp-for="EmployeeReportId" />
+                <input type="hidden" asp-for="ReportsToId" />
+                <label asp-for="ReportsToName" class="form-label text-dark fw-bold"></label>
+                <input asp-for="ReportsToName" class="form-control" placeholder="Enter Name">
+                <div><span asp-validation-for="ReportsToName" class="text-danger"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input type="hidden" asp-for="EmployeeId" />
+                <label asp-for="StartDate" class="form-label text-dark fw-bold"></label>
+                <input asp-for="StartDate" class="form-control" placeholder="mm/dd/yyyy">
+                <div><span asp-validation-for="StartDate" class="text-danger"></span></div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="EndDate" class="form-label text-dark fw-bold"></label>
+                <input asp-for="EndDate" class="form-control" placeholder="mm/dd/yyyy">
+                <div><span asp-validation-for="EndDate" class="text-danger"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <input type="checkbox" asp-for="IsCurrent" class="mr-2" style="width:16px;height:16px">
+                <span class="text-dark fw-bold" style="        font-size: 0.8rem">This is still current.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-controller="Employees" asp-action="Info" asp-route-id="@Model.EmployeeId" class="btn btn-dark" style="width:100px" title="Exit">
+                    <span class="text-white">Exit</span>
+                </a>
+                <a asp-controller="Employees" asp-action="ManageReportingLine" asp-route-id="@Model.EmployeeId" asp-route-rd="@Model.EmployeeReportId" class="btn btn-secondary" style="width:100px" title="Clear">
+                    <span class="text-white">Clear</span>
+                </a>
+                @if (!Model.OperationIsSuccessful)
+                {
+                    <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
+                }
+
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+@section Scripts{ 
+    <script src="~/js/erm.js"></script>
+}
+
+
+

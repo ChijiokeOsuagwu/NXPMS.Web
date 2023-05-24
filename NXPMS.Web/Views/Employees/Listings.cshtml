@@ -9,18 +9,18 @@
                 <a asp-controller="Home" asp-action="Index" class="btn btn-dark" style="width:100px" title="Exit">
                     <span class="text-white">Exit</span>
                 </a>
-                <select asp-for="uc" asp-items="@ViewBag.UnitsList" class="border-0" style="width:120px">
+                <select asp-for="uc" asp-items="@ViewBag.UnitsList" class="border-0" style="width:200px">
                     <option value="">- Unit -</option>
                 </select>
-                <select asp-for="dc" asp-items="@ViewBag.DepartmentsList" class="border-0" style="width:120px">
+                <select asp-for="dc" asp-items="@ViewBag.DepartmentsList" class="border-0" style="width:200px">
                     <option value="">- Department -</option>
                 </select>
-                <select asp-for="ld" asp-items="@ViewBag.LocationsList" class="border-0" style="width:120px">
+                <select asp-for="ld" asp-items="@ViewBag.LocationsList" class="border-0" style="width:200px">
                     <option value="">- Location -</option>
                 </select>
                 <input type="submit" value="Search" class="btn btn-dark mr-3 text-white" style="width:150px" />
-                <a asp-controller="Employees" asp-action="Create" class="btn btn-success" style="width:150px" title="Add New Employee">
-                    <span class="text-white pr-2">New Employee</span>
+                <a asp-controller="Employees" asp-action="AddPersonalInfo" class="btn btn-success" style="width:150px" title="Add New Employee">
+                    <span class="text-white">New Employee</span>
                 </a>
             </form>
 
@@ -84,7 +84,7 @@
                                     <span class="fw-bolder">@item.LocationName</span>
                                 </td>
                                 <td class="p-1">
-                                    <a asp-controller="Employees" asp-action="EmployeeInfo" asp-route-id="@item.EmployeeID" title="Select" class="btn btn-sm btn-dark">
+                                    <a asp-controller="Employees" asp-action="Info" asp-route-id="@item.EmployeeID" title="Select" class="btn btn-sm btn-dark">
                                         <span class="text-white fw-bold">Select</span>
                                     </a>
                                 </td>

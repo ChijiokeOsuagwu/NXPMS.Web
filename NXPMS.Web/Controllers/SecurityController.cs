@@ -19,6 +19,7 @@ using static NXPMS.Base.Services.SecurityService;
 
 namespace NXPMS.Web.Controllers
 {
+    [Authorize]
     public class SecurityController : Controller
     {
         private readonly IConfiguration _configuration;
@@ -43,6 +44,8 @@ namespace NXPMS.Web.Controllers
         }
 
         #region Login Action Methods
+
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl = null)
         {
             LoginViewModel model = new LoginViewModel();
@@ -55,6 +58,7 @@ namespace NXPMS.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
 
@@ -174,6 +178,8 @@ namespace NXPMS.Web.Controllers
         #endregion
 
         #region Users Action Methods
+
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> Users(int? id = null, string sp = null)
         {
             UserListViewModel model = new UserListViewModel();
@@ -224,6 +230,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> ManageUser(int id = 0, int? ed = null)
         {
             UserViewModel model = new UserViewModel();
@@ -261,6 +268,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         [HttpPost]
         public async Task<IActionResult> ManageUser(UserViewModel model)
         {
@@ -314,6 +322,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> SelectEmployee(string est)
         {
             EmployeeSearchViewModel model = new EmployeeSearchViewModel();
@@ -339,6 +348,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> ResetPassword(int id)
         {
             ResetPasswordViewModel model = new ResetPasswordViewModel();
@@ -368,6 +378,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
@@ -406,6 +417,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> Permissions(int id, string pd = null)
         {
             PermissionsListViewModel model = new PermissionsListViewModel();
@@ -438,6 +450,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         public async Task<IActionResult> NewPermissions(int id, string pd = null)
         {
             NewPermissionsListViewModel model = new NewPermissionsListViewModel();
@@ -470,8 +483,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
-
-
+        [Authorize(Roles = "SCTADM, XXACC")]
         [HttpPost]
         public string GrantUserPermission(int usd, string rld)
         {
@@ -494,6 +506,7 @@ namespace NXPMS.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "SCTADM, XXACC")]
         [HttpPost]
         public string RevokeUserPermission(int usd, string rld)
         {
@@ -515,7 +528,6 @@ namespace NXPMS.Web.Controllers
                 return "failed";
             }
         }
-
 
         #endregion
     }

@@ -17,16 +17,18 @@ namespace NXPMS.Base.Services
         private readonly IEmployeeTypeRepository _employeeTypeRepository;
         private readonly IUnitRepository _unitRepository;
         private readonly IStateRepository _stateRepository;
+        private readonly IEmployeeReportRepository _employeeReportRepository;
 
         public EmployeeRecordService(IEmployeesRepository employeesRepository,
             IEmployeeCategoryRepository employeeCategoryRepository, IEmployeeTypeRepository employeeTypeRepository,
-            IUnitRepository unitRepository, IStateRepository stateRepository)
+            IUnitRepository unitRepository, IStateRepository stateRepository, IEmployeeReportRepository employeeReportRepository)
         {
             _employeesRepository = employeesRepository;
             _employeeCategoryRepository = employeeCategoryRepository;
             _employeeTypeRepository = employeeTypeRepository;
             _unitRepository = unitRepository;
             _stateRepository = stateRepository;
+            _employeeReportRepository = employeeReportRepository;
         }
 
         #region Employees Read Service Methods
@@ -219,6 +221,47 @@ namespace NXPMS.Base.Services
             return await _employeesRepository.UpdateEmployeeNextOfKinInfoOnlyAsync(employee);
         }
 
+        #endregion
+
+        #region Employee Reports Service Methods
+        public async Task<List<EmployeeReport>> GetEmployeeReportsByEmployeeIdAsync(int employeeId)
+        {
+            List<EmployeeReport> employeeReports = new List<EmployeeReport>();
+            var entities = await _employeeReportRepository.GetByEmployeeIdAsync(employeeId);
+            if (entities != null && entities.Count > 0)
+            {
+                employeeReports = entities.ToList();
+            }
+            return employeeReports;
+        }
+
+        public async Task<EmployeeReport> GetEmployeeReportByIdAsync(int employeeReportId)
+        {
+            EmployeeReport employeeReport = new EmployeeReport();
+            var entities = await _employeeReportRepository.GetByIdAsync(employeeReportId);
+            if (entities != null && entities.Count > 0)
+            {
+                employeeReport = entities.ToList().FirstOrDefault();
+            }
+            return employeeReport;
+        }
+      
+        public async Task<bool> AddEmployeeReportAsync(EmployeeReport employeeReport)
+        {
+            if (employeeReport == null) { throw new ArgumentNullException(nameof(employeeReport)); }
+            if(employeeReport.EmployeeId == employeeReport.ReportsToId)
+            {
+                throw new Exception("Invalid Report. You cannot be reporting to yourself.");
+            }
+
+            var entities = await _employeeReportRepository.GetByEmployeeIdAndReportIdAsync(employeeReport.EmployeeId, employeeReport.ReportsToId);
+            if (entities != null && entities.Count > 0)
+            {
+               throw new Exception("This Reporting Line already exists in the system.");
+            }
+
+            return await _employeeReportRepository.AddAsync(employeeReport);
+        }
         #endregion
 
         #region Employee Settings Service Methods

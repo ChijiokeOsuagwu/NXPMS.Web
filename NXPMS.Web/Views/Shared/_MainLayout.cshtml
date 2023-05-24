@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-          content="">
-    <meta name="description"
-          content="">
+    <meta name="keywords"   content="">
+    <meta name="description"     content="">
     <meta name="robots" content="noindex,nofollow">
     @*<title>Next HR</title>*@
     <!-- Bootstrap CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootrap Icons CSS -->
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/matrix/assets/images/favicon.png">
     <!-- Custom CSS -->
@@ -222,16 +222,16 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="form-basic.html" class="sidebar-link" title="My Appraisals">
+                                    <a asp-controller="PMS" asp-action="Appraisals" class="sidebar-link" title="Appraisals">
                                         <i class="mdi mdi-file-check"></i><span class="hide-menu">
-                                            My Appraisals
+                                            Appraisals
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="form-wizard.html" class="sidebar-link" title="Pending My Action">
+                                    <a asp-controller="PMS" asp-action="Settings" class="sidebar-link" title="Appraisal Settings">
                                         <i class="mdi mdi-file-chart"></i><span class="hide-menu">
-                                            Pending My Action
+                                            Settings
                                         </span>
                                     </a>
                                 </li>

@@ -223,7 +223,6 @@ namespace NXPMS.Data.Repositories.EmployeeRecordRepositories
             return employeesList;
         }
 
-
         public async Task<IList<Employee>> GetByNameAsync(string fullname)
         {
             if (String.IsNullOrEmpty(fullname)) { throw new ArgumentNullException("The required parameter [Full Name] is null or has an invalid value."); }
@@ -418,6 +417,40 @@ namespace NXPMS.Data.Repositories.EmployeeRecordRepositories
             }
             await conn.CloseAsync();
             return employeesList;
+        }
+
+        public async Task<EmployeeCardinal> GetEmployeeCardinalsByIdAsync(int employeeId)
+        {
+            if (employeeId < 1) { throw new ArgumentNullException("The required parameter [Employee ID] is null or has an invalid value."); }
+
+            EmployeeCardinal employeeCardinal = new EmployeeCardinal();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            string query = String.Empty;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT e.empid, e.fullname, e.loc_id, e.dept_cd, e.unit_cd ");
+            sb.Append("FROM public.ermempinf e ");
+            sb.Append("WHERE e.empid = @empid ");
+            sb.Append("AND (e.is_dx = false);");
+            query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var empid = cmd.Parameters.Add("@empid", NpgsqlDbType.Integer);
+                await cmd.PrepareAsync();
+                empid.Value = employeeId;
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    employeeCardinal.EmployeeId = reader["empid"] == DBNull.Value ? 0 : (int)(reader["empid"]);
+                    employeeCardinal.EmployeeName = reader["fullname"] == DBNull.Value ? string.Empty : reader["fullname"].ToString();
+                    employeeCardinal.EmployeeLocationId = reader["loc_id"] == DBNull.Value ? 0 : (int)reader["loc_id"];
+                    employeeCardinal.EmployeeDepartmentCode = reader["dept_cd"] == DBNull.Value ? string.Empty : reader["dept_cd"].ToString();
+                    employeeCardinal.EmployeeUnitCode = reader["unit_cd"] == DBNull.Value ? string.Empty : reader["unit_cd"].ToString();
+                }
+            }
+            await conn.CloseAsync();
+            return employeeCardinal;
         }
 
         public async Task<IList<Employee>> GetAllAsync()

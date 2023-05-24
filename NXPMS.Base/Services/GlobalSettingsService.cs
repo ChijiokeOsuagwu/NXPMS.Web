@@ -121,6 +121,17 @@ namespace NXPMS.Base.Services
             return applications;
         }
 
+        public async Task<List<Industry>> GetIndustriesAsync()
+        {
+            List<Industry> industries = new List<Industry>();
+            var entities = await _systemRepository.GetAllIndustriesAsync();
+            if (entities != null && entities.Count > 0)
+            {
+                industries = entities.ToList();
+            }
+            return industries;
+        }
+
         #endregion
 
     }

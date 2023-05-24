@@ -10,5 +10,6 @@ namespace NXPMS.Base.Repositories.GlobalSettingsRepositories
         IConfiguration _config { get; }
 
         Task<IList<SystemApplication>> GetAllApplicationsAsync();
+        Task<List<Industry>> GetAllIndustriesAsync();
     }
 }

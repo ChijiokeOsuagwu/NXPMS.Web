@@ -41,5 +41,30 @@ namespace NXPMS.Data.Repositories.GlobalSettingsRepositories
             await conn.CloseAsync();
             return applicationsList;
         }
+        public async Task<List<Industry>> GetAllIndustriesAsync()
+        {
+            List<Industry> industryList = new List<Industry>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            string query = "SELECT sys_ind_id, sys_ind_ds FROM public.syscfginds; ";
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                await cmd.PrepareAsync();
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    industryList.Add(new Industry()
+                    {
+                        Id = reader["sys_ind_id"] == DBNull.Value ? 0 : (int)reader["sys_ind_id"],
+                        Description = reader["sys_ind_ds"] == DBNull.Value ? string.Empty : reader["sys_ind_ds"].ToString(),
+                    });
+                }
+            }
+            await conn.CloseAsync();
+            return industryList;
+        }
+
     }
 }

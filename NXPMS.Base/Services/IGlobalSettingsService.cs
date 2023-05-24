@@ -30,7 +30,7 @@ namespace NXPMS.Base.Services
 
         #region System Service Methods
         Task<List<SystemApplication>> GetSystemApplicationsAsync();
-
+        Task<List<Industry>> GetIndustriesAsync();
         #endregion
     }
 }

@@ -177,7 +177,6 @@ namespace NXPMS.Data.Repositories.SecurityRepositories
             return applicationRoleList;
         }
 
-
         public async Task<IList<ApplicationRole>> GetUnallocatedRolesByUserIdAndAppCodeAsync(int userId, string applicationCode)
         {
             if (string.IsNullOrWhiteSpace(applicationCode)) { throw new ArgumentNullException("The required parameter [UserID] is null or has an invalid value."); }
