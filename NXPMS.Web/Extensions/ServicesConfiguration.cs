@@ -46,6 +46,10 @@ namespace NXPMS.Web.Extensions
             services.AddScoped<IPmsSystemRepository, PmsSystemRepository>();
             services.AddScoped<IReviewCDGRepository, ReviewCDGRepository>();
             services.AddScoped<IReviewSubmissionRepository, ReviewSubmissionRepository>();
+            services.AddScoped<IReviewMessageRepository, ReviewMessageRepository>();
+            services.AddScoped<IApprovalRoleRepository, ApprovalRoleRepository>();
+            services.AddScoped<IReviewApprovalRepository, ReviewApprovalRepository>();
+            services.AddScoped<IReviewResultRepository, ReviewResultRepository>();
         }
 
         public static void ConfigureServiceManagers(this IServiceCollection services)

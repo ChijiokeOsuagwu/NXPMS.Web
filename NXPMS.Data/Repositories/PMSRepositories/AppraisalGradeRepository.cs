@@ -33,7 +33,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th'   WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsrvwgrds g INNER JOIN ");
             sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
-            sb.Append("ORDER BY g.grd_typ_id, g.grd_rnk;");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -79,7 +79,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th'   WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsrvwgrds g INNER JOIN ");
             sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
-            sb.Append("WHERE (g.rvw_grd_id = @rvw_grd_id); ");
+            sb.Append("WHERE (g.rvw_grd_id = @rvw_grd_id) ");
+            sb.Append("ORDER BY g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -128,7 +129,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th'   WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsrvwgrds g INNER JOIN ");
             sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
-            sb.Append("WHERE (g.rvw_grd_ds = @rvw_grd_ds); ");
+            sb.Append("WHERE (g.rvw_grd_ds = @rvw_grd_ds) ");
+            sb.Append("ORDER BY g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -177,7 +179,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th' WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsrvwgrds g INNER JOIN ");
             sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
-            sb.Append("WHERE (g.rvw_sxn_id = @rvw_sxn_id) ORDER BY g.grd_typ_id; ");
+            sb.Append("WHERE (g.rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -228,7 +231,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
             sb.Append("WHERE (g.rvw_sxn_id = @rvw_sxn_id) ");
             sb.Append("AND (g.grd_typ_id = @grd_typ_id) ");
-            sb.Append("ORDER BY g.grd_typ_id; ");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC; ");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -266,6 +269,61 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             return appraisalGradesList;
         }
 
+        public async Task<IList<AppraisalGrade>> GetByReviewSessionIdAndGradeScoreAsync(int reviewSessionId, ReviewGradeType gradeType, decimal gradeScore)
+        {
+            List<AppraisalGrade> appraisalGradesList = new List<AppraisalGrade>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT g.rvw_grd_id, g.rvw_grd_ds, g.rvw_sxn_id, g.grd_typ_id, ");
+            sb.Append("g.lwr_band, g.upr_band, g.grd_ctt, g.grd_ctb, g.grd_mdt, g.grd_mdb, ");
+            sb.Append("g.grd_rnk, s.rvw_sxn_nm, CASE g.grd_rnk  WHEN 1 THEN '1st' ");
+            sb.Append("WHEN 2 THEN '2nd' WHEN 3 THEN '3rd' WHEN 4 THEN '4th' ");
+            sb.Append("WHEN 5 THEN '5th'  WHEN 6 THEN '6th'  WHEN 7 THEN '7th' ");
+            sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th'   WHEN 10 THEN '10th' ");
+            sb.Append("END grd_rnk_ds FROM public.pmsrvwgrds g INNER JOIN ");
+            sb.Append("public.pmsrvwsxns s ON g.rvw_sxn_id = s.rvw_sxn_id ");
+            sb.Append("WHERE (g.rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (g.grd_typ_id = @grd_typ_id) ");
+            sb.Append("AND (@grade_score BETWEEN g.lwr_band AND g.upr_band) ");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC; ");
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var grd_typ_id = cmd.Parameters.Add("@grd_typ_id", NpgsqlDbType.Integer);
+                var grade_score = cmd.Parameters.Add("@grade_score", NpgsqlDbType.Numeric);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                grd_typ_id.Value = (int)gradeType;
+                grade_score.Value = gradeScore;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    appraisalGradesList.Add(new AppraisalGrade()
+                    {
+                        AppraisalGradeId = reader["rvw_grd_id"] == DBNull.Value ? 0 : (int)(reader["rvw_grd_id"]),
+                        AppraisalGradeDescription = reader["rvw_grd_ds"] == DBNull.Value ? string.Empty : (reader["rvw_grd_ds"]).ToString(),
+                        ReviewSessionId = reader["rvw_sxn_id"] == DBNull.Value ? 0 : (int)reader["rvw_sxn_id"],
+                        ReviewSessionName = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
+
+                        GradeType = reader["grd_typ_id"] == DBNull.Value ? ReviewGradeType.Performance : (ReviewGradeType)reader["grd_typ_id"],
+                        LowerBandScore = reader["lwr_band"] == DBNull.Value ? 0.00M : (decimal)reader["lwr_band"],
+                        UpperBandScore = reader["upr_band"] == DBNull.Value ? 0.00M : (decimal)reader["upr_band"],
+                        GradeRank = reader["grd_rnk"] == DBNull.Value ? 0 : Convert.ToInt16(reader["grd_rnk"]),
+                        GradeRankDescription = reader["grd_rnk_ds"] == DBNull.Value ? string.Empty : (reader["grd_rnk_ds"]).ToString(),
+                        LastModifiedBy = reader["grd_mdb"] == DBNull.Value ? string.Empty : (reader["grd_mdb"]).ToString(),
+                        LastModifiedTime = reader["grd_mdt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["grd_mdt"],
+                        CreatedBy = reader["grd_ctb"] == DBNull.Value ? string.Empty : (reader["grd_ctb"]).ToString(),
+                        CreatedTime = reader["grd_ctt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["grd_ctt"],
+                    });
+                }
+            }
+            await conn.CloseAsync();
+            return appraisalGradesList;
+        }
         #endregion
 
         #region Review Grade Write Action Methods

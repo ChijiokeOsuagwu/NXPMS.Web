@@ -10,7 +10,6 @@ namespace NXPMS.Base.Repositories.PMSRepositories
         IConfiguration _config { get; }
 
         Task<IList<ReviewType>> GetAllReviewTypesAsync();
-
-        Task<IList<ApprovalRole>> GetAllApprovalRolesAsync();
+        Task<IList<AppraisalRecommendation>> GetAllRecommendationsAsync();
     }
 }

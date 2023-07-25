@@ -18,6 +18,14 @@ namespace NXPMS.Base.Repositories.PMSRepositories
 
         #endregion
 
+        #region Employee Session Schedule Read Action Methods
+        Task<List<SessionActivityType>> GetForAllAsync(int reviewSessionId);
+        Task<List<SessionActivityType>> GetForLocationAsync(int reviewSessionId, int locationId);
+        Task<List<SessionActivityType>> GetForDepartmentAsync(int reviewSessionId, string departmentCode);
+        Task<List<SessionActivityType>> GetForUnitAsync(int reviewSessionId, string unitCode);
+        Task<List<SessionActivityType>> GetForEmployeeAsync(int reviewSessionId, int employeeId);
+        #endregion
+
         #region Session Schedule Read Action Methods
         Task<IList<SessionSchedule>> GetAllAsync(int reviewSessionId);
         Task<IList<SessionSchedule>> GetByDepartmentCodeAsync(int reviewSessionId, string departmentCode);

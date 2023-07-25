@@ -9,6 +9,7 @@ namespace NXPMS.Base.Repositories.PMSRepositories
     {
         IConfiguration _config { get; }
 
+        #region Review Session Read Action Methods
         Task<bool> AddAsync(ReviewSession reviewSession);
         Task<bool> DeleteAsync(int reviewSessionId);
         Task<IList<ReviewSession>> GetAllAsync();
@@ -16,5 +17,6 @@ namespace NXPMS.Base.Repositories.PMSRepositories
         Task<IList<ReviewSession>> GetByNameAsync(string reviewSessionName);
         Task<IList<ReviewSession>> GetByYearIdAsync(int performanceYearId);
         Task<bool> UpdateAsync(ReviewSession reviewSession);
+        #endregion
     }
 }

@@ -19,6 +19,8 @@ namespace NXPMS.Base.Repositories.PMSRepositories
         Task<IList<AppraisalGrade>> GetByNameAsync(string appraisalGradeName);
         Task<IList<AppraisalGrade>> GetByReviewSessionIdAsync(int reviewSessionId);
         Task<IList<AppraisalGrade>> GetByReviewSessionIdAsync(int reviewSessionId, ReviewGradeType gradeType);
+        Task<IList<AppraisalGrade>> GetByReviewSessionIdAndGradeScoreAsync(int reviewSessionId, ReviewGradeType gradeType, decimal gradeScore);
+
         Task<bool> UpdateAsync(AppraisalGrade appraisalGrade);
     }
 }

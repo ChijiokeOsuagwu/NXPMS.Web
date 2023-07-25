@@ -57,7 +57,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT rvw_stg_id, rvw_stg_nm, stg_xtn_ds, stg_hlp_ds, ");
             sb.Append("stg_phs_ds FROM public.pmssttstgs ");
-            sb.Append("WHERE rvw_stg_id < @rvw_stg_id ");
+            sb.Append("WHERE rvw_stg_id <= @rvw_stg_id ");
             sb.Append("ORDER BY rvw_stg_id;");
             string query = sb.ToString();
             await conn.OpenAsync();

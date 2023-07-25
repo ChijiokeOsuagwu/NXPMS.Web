@@ -177,6 +177,16 @@ namespace NXPMS.Web.Controllers
         }
         #endregion
 
+        #region Security Utility Action Methods
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+
+        #endregion
+
         #region Users Action Methods
 
         [Authorize(Roles = "SCTADM, XXACC")]

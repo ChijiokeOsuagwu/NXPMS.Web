@@ -56,33 +56,15 @@
                                         <span class="fw-bolder">@item.GradeHeaderDescription</span>
                                     </td>
                                     <td class="p-2 text-end">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Select Action
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li>
-                                                    <a asp-controller="PMS" asp-action="ManageGradeProfile" asp-route-id="@item.GradeHeaderId" title="Edit" class="dropdown-item">
-                                                        <span class="fw-bold">Edit</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a asp-controller="PMS" asp-action="DeleteGradeProfile" asp-route-id="@item.GradeHeaderId" title="Delete" class="dropdown-item">
-                                                        <span class="fw-bold">Delete</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a asp-controller="PMS" asp-action="PerformanceGradeTemplate" asp-route-id="@item.GradeHeaderId" title="Performance Grades" class="dropdown-item">
-                                                        <span class="fw-bold">Performance Grades</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a asp-controller="PMS" asp-action="CompetencyGradeTemplate" asp-route-id="@item.GradeHeaderId" title="Competency Grades" class="dropdown-item">
-                                                        <span class="fw-bold">Competency Grades</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a asp-controller="PMS" asp-action="ManageGradeProfile" asp-route-id="@item.GradeHeaderId" title="Edit" class="btn btn-sm btn-info" style="width:75px">
+                                            <span class="fw-bold text-white">Edit</span>
+                                        </a>
+                                        <a asp-controller="PMS" asp-action="PerformanceGradeTemplate" asp-route-id="@item.GradeHeaderId" title="Performance Grades" class="btn btn-sm btn-success" style="width:150px">
+                                            <span class="fw-bold text-white">Performance Grades</span>
+                                        </a>
+                                        <a asp-controller="PMS" asp-action="CompetencyGradeTemplate" asp-route-id="@item.GradeHeaderId" title="Competency Grades" class="btn btn-sm btn-dark" style="width:150px">
+                                            <span class="fw-bold">Competency Grades</span>
+                                        </a>
                                     </td>
                                 </tr>
                             }

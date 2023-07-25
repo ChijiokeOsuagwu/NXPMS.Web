@@ -33,7 +33,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th'   WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsgrddtls g INNER JOIN ");
             sb.Append("public.pmsgrdhdrs h ON g.grd_hdr_id = h.grd_hdr_id ");
-            sb.Append("ORDER BY g.grd_typ_id, g.grd_rnk;");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -126,7 +126,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th' WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsgrddtls g INNER JOIN ");
             sb.Append("public.pmsgrdhdrs h ON g.grd_hdr_id = h.grd_hdr_id ");
-            sb.Append("WHERE (g.sxn_grd_ds = @sxn_grd_ds); ");
+            sb.Append("WHERE (g.sxn_grd_ds = @sxn_grd_ds) ");
+            sb.Append("ORDER BY g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -174,7 +175,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("WHEN 8 THEN '8th' WHEN 9 THEN '9th' WHEN 10 THEN '10th' ");
             sb.Append("END grd_rnk_ds FROM public.pmsgrddtls g INNER JOIN ");
             sb.Append("public.pmsgrdhdrs h ON g.grd_hdr_id = h.grd_hdr_id ");
-            sb.Append("WHERE (g.grd_hdr_id = @grd_hdr_id) ORDER BY g.grd_typ_id; ");
+            sb.Append("WHERE (g.grd_hdr_id = @grd_hdr_id) ");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -224,7 +226,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("public.pmsgrdhdrs h ON g.grd_hdr_id = h.grd_hdr_id ");
             sb.Append("WHERE (g.grd_hdr_id = @grd_hdr_id) ");
             sb.Append("AND (g.grd_typ_id = @grd_typ_id) ");
-            sb.Append("ORDER BY g.grd_typ_id; ");
+            sb.Append("ORDER BY g.grd_typ_id, g.upr_band DESC; ");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows

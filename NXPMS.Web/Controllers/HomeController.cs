@@ -26,6 +26,19 @@ namespace NXPMS.Web.Controllers
           return View();
         }
 
+        [Authorize]
+        public IActionResult System()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Employees()
+        {
+            return View();
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

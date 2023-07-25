@@ -46,12 +46,30 @@
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
-                    @*<div class="text-center pt-3 pb-3">
+                    <div class="text-center pt-3 pb-3">
                         <span class="db"><img src="~/matrix/assets/images/logo.png" alt="logo" /></span>
-                    </div>*@
+                    </div>
                     <!-- Form -->
                     <form class="form-horizontal mt-3" id="loginform" asp-controller="Security" asp-action="Login" autocomplete="off">
                         <div class="row pb-6">
+                            <div class="col-12">
+                                @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+                                {
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-x-circle"></i>
+                                    <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                }
+                                @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+                                {
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <i class="bi bi-exclamation-circle"></i>
+                                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                                }
+                            </div>
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">

@@ -20,6 +20,8 @@ namespace NXPMS.Base.Repositories.PMSRepositories
         Task<decimal> GetTotalKpaWeightageByReviewHeaderIdAsync(int reviewHeaderId);
         Task<decimal> GetTotalCmpWeightageByReviewHeaderIdAsync(int reviewHeaderId);
         Task<int> GetCmpCountByReviewHeaderIdAsync(int reviewHeaderId);
+        Task<IList<ReviewMetric>> GetUnevaluatedByMetricTypeIdAsync(int reviewHeaderId, int appraiserId, int metricTypeId);
+
         Task<bool> UpdateAsync(ReviewMetric reviewMetric);
     }
 }

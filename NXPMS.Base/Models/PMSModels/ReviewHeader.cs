@@ -11,6 +11,7 @@ namespace NXPMS.Base.Models.PMSModels
         public string ReviewSessionName { get; set; }
         public int AppraiseeId { get; set; }
         public string AppraiseeName { get; set; }
+        public string AppraiseeDesignation { get; set; }
         public int ReviewStageId { get; set; }
         public string ReviewStageDescription { get; set; }
         public string ReviewStageActionDescription { get; set; }
@@ -18,6 +19,7 @@ namespace NXPMS.Base.Models.PMSModels
         public string ReviewYearName { get; set; }
         public int? PrimaryAppraiserId { get; set; }
         public string PrimaryAppraiserName { get; set; }
+        public string PrimaryAppraiserDesignation { get; set; }
         public string FeedbackProblems { get; set; }
         public string FeedbackSolutions { get; set; }
         public string UnitCode { get; set; }
@@ -27,22 +29,24 @@ namespace NXPMS.Base.Models.PMSModels
         public int? LocationId { get; set; }
         public string LocationName { get; set; }
         public string LineManagerComments { get; set; }
-        public int? LineManagerRecommendation { get; set; }
-        public string LineManagerRecommendationDescription { get; set; }
+        public string LineManagerName { get; set; }
+        public string LineManagerRecommendation { get; set; }
         public string UnitHeadComments { get; set; }
-        public int? UnitHeadRecommendation { get; set; }
-        public string UnitHeadRecommendationDescription { get; set; }
+        public string UnitHeadName { get; set; }
+        public string UnitHeadRecommendation { get; set; }
         public string DepartmentHeadComments { get; set; }
-        public int? DepartmentHeadRecommendation { get; set; }
-        public string DepartmentHeadRecommendationDescription { get; set; }
+        public string DepartmentHeadName { get; set; }
+        public string DepartmentHeadRecommendation { get; set; }
         public string HrComments { get; set; }
-        public int? HrRecommendation { get; set; }
-        public string HrRecommendationDescription { get; set; }
+        public string HrName { get; set; }
+        public string HrRecommendation { get; set; }
         public string ManagementComments { get; set; }
-        public int? ManagementDecision { get; set; }
-        public string ManagementDecisionDescription { get; set; }
-        public bool? IsAccepted { get; set; }
-        public DateTime? TimeAccepted { get; set; }
+        public string ManagementName { get; set; }
+        public string ManagementDecision { get; set; }
+        public bool? ContractIsAccepted { get; set; }
+        public DateTime? TimeContractAccepted { get; set; }
+        public bool? EvaluationIsAccepted { get; set; }
+        public DateTime? TimeEvaluationAccepted { get; set; }
         public bool IsFlagged { get; set; }
         public string FlaggedBy { get; set; }
         public DateTime? FlaggedTime { get; set; }

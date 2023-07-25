@@ -26,12 +26,16 @@ namespace NXPMS.Web.Controllers
             _employeeRecordService = employeeRecordService;
             _globalSettingsService = globalSettingsService;
         }
-        
+
         #region Employee Read Controller Actions
+
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public IActionResult Records()
         {
             return View();
         }
+
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> Search(string est)
         {
             EmployeeSearchViewModel model = new EmployeeSearchViewModel();
@@ -59,6 +63,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> Listings(int ld = 0, string dc = null, string uc = null)
         {
             EmployeeListingsViewModel model = new EmployeeListingsViewModel();
@@ -158,9 +163,11 @@ namespace NXPMS.Web.Controllers
             }
             return View(model);
         }
-#endregion
+        #endregion
 
         #region Employees Write Controller Actions
+
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddPersonalInfo(int? id = null)
         {
             EmployeePersonalInfoViewModel model = new EmployeePersonalInfoViewModel();
@@ -182,12 +189,19 @@ namespace NXPMS.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddPersonalInfo(EmployeePersonalInfoViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (!string.IsNullOrWhiteSpace(model.Title)) { model.Title = model.Title.ToUpper(); }
+                    if (!string.IsNullOrWhiteSpace(model.FirstName)) { model.FirstName = model.FirstName.ToUpper(); }
+                    if (!string.IsNullOrWhiteSpace(model.Surname)) { model.Surname = model.Surname.ToUpper(); }
+                    if (!string.IsNullOrWhiteSpace(model.OtherNames)) { model.OtherNames = model.OtherNames.ToUpper(); }
+
                     Employee employee = model.ConvertToEmployee();
                     if (!string.IsNullOrWhiteSpace(employee.StateOfOrigin))
                     {
@@ -242,6 +256,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddEmploymentInfo(int id)
         {
             EmployeeEmploymentInfoViewModel model = new EmployeeEmploymentInfoViewModel();
@@ -268,6 +283,8 @@ namespace NXPMS.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddEmploymentInfo(EmployeeEmploymentInfoViewModel model)
         {
             if (ModelState.IsValid)
@@ -303,6 +320,7 @@ namespace NXPMS.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddNextOfKinInfo(int id)
         {
             EmployeeNextOfKinInfoViewModel model = new EmployeeNextOfKinInfoViewModel();
@@ -319,6 +337,8 @@ namespace NXPMS.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ERMMNG, XXACC")]
         public async Task<IActionResult> AddNextOfKinInfo(EmployeeNextOfKinInfoViewModel model)
         {
             if (ModelState.IsValid)
@@ -350,6 +370,8 @@ namespace NXPMS.Web.Controllers
         #endregion
 
         #region Employee Reports Controller Actions
+
+        [Authorize(Roles = "ERMVOR, ERMMNG, XXACC")]
         public async Task<IActionResult> ReportingLines(int id)
         {
             EmployeeReportListViewModel model = new EmployeeReportListViewModel();
@@ -364,6 +386,8 @@ namespace NXPMS.Web.Controllers
             }
             return View(model);
         }
+
+        [Authorize(Roles = "ERMVOR, ERMMNG, XXACC")]
         public async Task<IActionResult> ManageReportingLine(int id, int? rd = null)
         {
             EmployeeReportLineViewModel model = new EmployeeReportLineViewModel();
@@ -378,6 +402,8 @@ namespace NXPMS.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ERMVOR, ERMMNG, XXACC")]
         public async Task<IActionResult> ManageReportingLine(EmployeeReportLineViewModel model)
         {
             EmployeeReport employeeReport = new EmployeeReport();

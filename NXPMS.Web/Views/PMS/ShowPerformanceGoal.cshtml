@@ -39,13 +39,18 @@
                 </em>
             </p>
             <div class="row">
-                <div class="col-md-12 mb-3">
+                <div class="col-md-12 mb-2">
                     <input type="hidden" asp-for="ReviewHeaderID" />
                     <input type="hidden" asp-for="ReviewSessionID" />
                     <input type="hidden" asp-for="AppraiseeID" />
                     <label asp-for="PerformanceGoals" class="form-label text-white fw-bold"></label>
                     <textarea asp-for="PerformanceGoals" class="form-control fw-bold" rows="6" style="font-size:1.0rem" readonly="readonly">@Model.PerformanceGoals</textarea>
-                    <div><span asp-validation-for="PerformanceGoals" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="AppraiserName" class="form-label text-white fw-bold"></label>
+                    <div class="form-control fw-bold">@Model.AppraiserName</div>
                 </div>
             </div>
             <div class="row">

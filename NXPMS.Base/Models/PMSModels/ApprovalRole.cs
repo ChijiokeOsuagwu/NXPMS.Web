@@ -8,5 +8,7 @@ namespace NXPMS.Base.Models.PMSModels
     {
         public int ApprovalRoleId { get; set; }
         public string ApprovalRoleName { get; set; }
+        public bool MustApproveContract { get; set; }
+        public bool MustApproveEvaluation { get; set; }
     }
 }

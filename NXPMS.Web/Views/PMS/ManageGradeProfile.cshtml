@@ -57,7 +57,9 @@
                     {
                         <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
                     }
-
+                    <a asp-controller="PMS" asp-action="DeleteGradeProfile" asp-route-id="@Model.GradeHeaderId" title="Delete" class="btn btn-sm btn-danger ml-5" style="width:100px">
+                        <span class="fw-bold text-white">Delete</span>
+                    </a>
                 </div>
             </div>
         </form>

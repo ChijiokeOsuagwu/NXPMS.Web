@@ -1,0 +1,96 @@
+﻿@model NXPMS.Web.Models.SettingsModels.ManageLocationViewModel
+<h3>Location Settings</h3>
+<hr />
+<div class="card mt-1" style="max-width:800px">
+    <div class="card-header bg-dark">
+        @if (Model.IsUpdate)
+        {
+            <h4 class="text-white">Edit Location</h4>
+        }
+        else
+        {
+            <h4 class="text-white">New Location</h4>
+        }
+
+    </div>
+    <div class="card-body" style="background-color:#edbb99">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <form asp-controller="Settings" asp-action="ManageLocation" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <input type="hidden" asp-for="LocationID" />
+                    <input type="hidden" asp-for="LocationHeadID" />
+                    <input type="hidden" asp-for="LocationAltHeadID" />
+                    <input type="hidden" asp-for="IsUpdate" />
+                    <label asp-for="LocationName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="LocationName" class="form-control fw-bold">
+                    <div><span asp-validation-for="LocationName" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="LocationState" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="LocationState" class="form-control fw-bold">
+                    <div><span asp-validation-for="LocationState" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="LocationCountry" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="LocationCountry" class="form-control fw-bold">
+                    <div><span asp-validation-for="LocationCountry" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="LocationHeadName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="LocationHeadName" class="form-control fw-bold">
+                    <div><span asp-validation-for="LocationHeadName" class="text-danger"></span></div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="LocationAltHeadName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="LocationAltHeadName" class="form-control fw-bold">
+                    <div><span asp-validation-for="LocationAltHeadName" class="text-danger"></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-1 text-end">
+                    <a asp-controller="Settings" asp-action="LocationList" class="btn btn-secondary" style="width:100px" title="Back">
+                        <span class="text-white">Back</span>
+                    </a>
+                    <a asp-controller="Settings" asp-action="ManageLocation" asp-route-id="@Model.LocationID" class="btn btn-secondary" style="width:100px" title="Clear">
+                        <span class="text-white">Clear</span>
+                    </a>
+                    @if (!Model.OperationIsSuccessful)
+                    {
+                        <button type="submit" class="btn btn-dark" title="Save" style="width:200px"><span class="text-white">Save</span></button>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/erm.js"></script>
+}

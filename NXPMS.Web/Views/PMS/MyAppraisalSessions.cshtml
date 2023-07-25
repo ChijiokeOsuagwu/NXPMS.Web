@@ -12,7 +12,7 @@
                 <select asp-for="Id" asp-items="@ViewBag.PerformanceYearsList" class="border-0" style="width:200px">
                     <option value="">- Select Year -</option>
                 </select>
-                <input type="submit" value="Search" class="btn btn-dark text-white ml-3" style="width:150px" />
+                <input type="submit" value="Search" class="btn btn-dark text-white ml-3" style="width:100px" />
             </form>
 
             @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
@@ -38,50 +38,41 @@
                     <table class="table table-sm table-hover">
                         <thead style="background-color:#2e4053">
                             <tr>
-                                <th><span class="text-white fw-bolder">Name</span></th>
-                                <th>
-                                    <span class="text-white fw-bolder">Type</span>
-                                </th>
-                                <th>
-                                    <span class="text-white fw-bolder">Year</span>
-                                </th>
-                                <th>
-                                    <span class="text-white fw-bolder">Status</span>
-                                </th>
-                                <th>
-
-                                </th>
+                                <th><h4 class="text-white fw-bolder">Appraisal Sessions</h4></th>
                             </tr>
                         </thead>
-                        <tbody style="background-color:#d1f2eb">
+                        <tbody>
                             @foreach (var item in Model.ReviewSessionsList)
                             {
-                                <tr>
-                                    <td class="p-2">
-                                        <span class="fw-bolder">@item.Name</span>
-                                    </td>
-                                    <td class="p-2">
-                                        <span class="fw-bolder">@item.ReviewTypeName</span>
-                                    </td>
-                                    <td class="p-2">
-                                        <span class="fw-bolder">@item.ReviewYearName</span>
-                                    </td>
-                                    @if (item.IsActive)
-                                    {
-                                        <td class="p-2 text-center" title="Open Session">
-                                            <i class="bi bi-unlock-fill fw-bold" title="Open Session" style="font-size:1.2rem; color:green;"></i>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td class="p-2 text-center" title="Closed Session">
-                                            <i class="bi bi-lock-fill fw-bold" title="Closed Session" style="font-size:1.2rem; color:red;"></i>
-                                        </td>
-                                    }
-                                    <td class="p-2 text-end">
-                                        <a asp-controller="PMS" asp-action="MyAppraisalSteps" asp-route-id="@item.Id" title="Select" class="btn btn-sm btn-dark" style="width:100px;">
-                                            <span class="text-white fw-bold">Select</span>
-                                        </a>
+                                <tr style="border:2px solid #d5d8dc">
+                                    <td>
+                                        <div class="row pb-2">
+                                            <div class="col-md-6">
+                                                @if (item.IsActive)
+                                                {
+                                                   <span class="badge bg-success fw-bold fs-6">Open</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger fw-bold fs-6">Closed</span>
+                                                }
+                                                <span class="fw-bolder fs-5 pl-1">@item.Name</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="fw-bolder fs-5">@item.ReviewTypeName</span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a asp-controller="PMS" asp-action="ReviewSessionInfo" asp-route-id="@item.Id" title="Show Information" class="btn btn-sm btn-light text-dark">
+                                                    <i class="bi bi-info-lg fw-bolder" style="font-size:0.8rem;"></i><span class="fw-bold" style="font-size: 0.8rem;">Details</span>
+                                                </a>
+                                                <a asp-Controller="PMS" asp-action="AppraisalGradesInfo" asp-route-id="@item.Id" title="Grade Settings" class="btn btn-sm btn-light text-dark">
+                                                    <i class="bi bi-percent fw-bolder" style="font-size: 0.8rem;"></i><span class="fw-bold ml-2" style="font-size: 0.8rem;">Grading</span>
+                                                </a>
+                                                <a asp-Controller="PMS" asp-action="MyAppraisalSteps" asp-route-id="@item.Id" title="Process" class="btn btn-sm btn-light text-dark">
+                                                    <i class="bi bi-pencil-square fw-bolder" style="font-size: 0.8rem;"></i><span class="fw-bold ml-2" style="font-size: 0.8rem;">Process</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -89,7 +80,6 @@
                     </table>
                 </div>
             }
-
         </div>
     </div>
 </div>

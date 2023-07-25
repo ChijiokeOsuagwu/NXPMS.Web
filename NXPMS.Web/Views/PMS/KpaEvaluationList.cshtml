@@ -1,0 +1,106 @@
+﻿
+@model NXPMS.Web.Models.PMSViewModels.EvaluationListViewModel
+<div class="container">
+    <h4 class="mb-1">Evaluation List: Key Performance Areas (KPAs)</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 text-start">
+            <a asp-controller="PMS" asp-action="MyAppraisalSteps" asp-route-id="@Model.ReviewHeaderID" title="Go Back" class="btn btn-outline-light text-dark" onclick="history.back()">
+                <i class="bi bi-backspace fw-bolder" style="font-size: 1.1rem;"></i><span class="fw-bold ml-2" style="font-size: 1.0rem;">Back</span>
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="PMS" asp-action="cmpEvaluationList" asp-route-id="@Model.ReviewHeaderID" asp-route-ad="@Model.AppraiserID" title="Proceed to Evaluate Competencies" class="btn btn-sm btn-light text-dark ml-2">
+                <span class="fw-bold mr-2" style="font-size: 1.0rem;">Proceed to Competencies</span><i class="bi bi-chevron-double-right fw-bolder" style="font-size: 1.1rem;"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model == null || Model.ReviewResultList == null || Model.ReviewResultList.Count < 1)
+        {
+            <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold text-dark">No record was found.</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        else
+        {
+            int row_number = 0;
+            <div class="table-responsive">
+                <table class="table border-0">
+                    <tbody>
+                        @foreach (var kpa in Model.ReviewResultList)
+                        {
+                            row_number++;
+                            <tr style="border-bottom:2px solid #abb2b9">
+                                <td>
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                            <span class="fw-bold text-white" style="font-size: 0.9rem;">KPA #@row_number</span>
+                                        </div>
+                                        <div class="card-body" style="background-color:#ccccff">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <label class="form-label text-dark fw-bold">Description</label>
+                                                    <textarea asp-for="@kpa.ReviewMetricDescription" class="form-control fw-bold" rows="3" style="font-size:1.0rem" readonly="readonly">@kpa.ReviewMetricDescription</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <label class="form-label text-dark fw-bold">Measurement</label>
+                                                    <textarea asp-for="@kpa.ReviewMetricMeasurement" class="form-control fw-bold" rows="2" style="font-size:1.0rem" readonly="readonly">@kpa.ReviewMetricMeasurement</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <label class="form-label text-dark fw-bold">Target Achievement</label>
+                                                    <textarea asp-for="@kpa.ReviewMetricTarget" class="form-control fw-bold" rows="2" style="font-size:1.0rem" readonly="readonly">@kpa.ReviewMetricTarget</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <label class="form-label text-dark fw-bold">Actual Achievement</label>
+                                                    <textarea asp-for="@kpa.ActualAchievement" class="form-control fw-bold" rows="2" style="font-size:1.0rem" readonly="readonly">@kpa.ActualAchievement</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <label class="form-label text-dark fw-bold">Appraiser Comment</label>
+                                                    <textarea asp-for="@kpa.AppraiserComment" class="form-control fw-bold" rows="2" style="font-size:1.0rem" readonly="readonly">@kpa.AppraiserComment</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label class="form-label text-dark fw-bold">Score</label>
+                                                    <div class="form-control fw-bold">@kpa.AppraiserScoreDescription</div>
+                                                </div>
+                                                <div class="col-md-10 text-end">
+                                                    <a asp-controller="PMS" asp-action="SelfEvaluateKpa" asp-route-id="@Model.ReviewHeaderID" asp-route-md="@kpa.ReviewMetricId" asp-route-ad="@Model.AppraiserID" title="Evaluate this KPA" class="btn btn-info mt-4" style="width:100px">
+                                                        <span class="text-white fw-bold">Evaluate</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-start">
+                    <button title="Go Back" class="btn btn-outline-light text-dark" onclick="history.back()">
+                        <i class="bi bi-backspace fw-bolder" style="font-size: 1.1rem;"></i><span class="fw-bold ml-2" style="font-size: 1.0rem;">Back</span>
+                    </button>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a asp-controller="PMS" asp-action="cmpEvaluationList" asp-route-id="@Model.ReviewHeaderID" asp-route-ad="@Model.AppraiserID" title="Proceed to Evaluate Competencies" class="btn btn-sm btn-light text-dark ml-2">
+                        <span class="fw-bold mr-2" style="font-size: 1.0rem;">Proceed to Competencies</span><i class="bi bi-chevron-double-right fw-bolder" style="font-size: 1.1rem;"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

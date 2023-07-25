@@ -23,9 +23,11 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             List<PmsActivityHistory> activityList = new List<PmsActivityHistory>();
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT a.pms_hst_id, a.pms_act_ds, a.pms_act_dt, a.rvw_hdr_id ");
-            sb.Append("FROM public.pmsloghsts a ");
-            sb.Append("WHERE (a.rvw_hdr_id = @rvw_hdr_id); ");
+            sb.Append("SELECT a.pms_hst_id, a.pms_act_ds, a.pms_act_dt, ");
+            sb.Append("a.rvw_hdr_id FROM public.pmsloghsts a ");
+            sb.Append("WHERE (a.rvw_hdr_id = @rvw_hdr_id) ");
+            sb.Append("ORDER BY a.pms_hst_id DESC;");
+
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -59,7 +61,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("INSERT INTO public.pmsloghsts(pms_act_ds, pms_act_dt, ");
-            sb.Append("rvw_hdr_id) VALUES (@pms_act_ds, @pms_act_dt, @rvw_hdr_id); ");
+            sb.Append("rvw_hdr_id) VALUES (@pms_act_ds, @pms_act_dt, @rvw_hdr_id);");
 
             string query = sb.ToString();
             try

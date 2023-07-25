@@ -36,13 +36,22 @@
             <strong>Tip:</strong><em> Performance Goal is like the "Vision Statement" of your performance objectives for the period.
     One statement per role is normally enough.</em></p>
         <div class="row">
-            <div class="col-md-12 mb-3">
+            <div class="col-md-12 mb-2">
                 <input type="hidden" asp-for="ReviewHeaderID" />
                 <input type="hidden" asp-for="ReviewSessionID" />
                 <input type="hidden" asp-for="AppraiseeID" />
                 <label asp-for="PerformanceGoals" class="form-label text-white fw-bold"></label>
                 <textarea asp-for="PerformanceGoals" class="form-control fw-bold" rows="6" style="font-size:1.0rem">@Model.PerformanceGoals</textarea>
                 <div><span asp-validation-for="PerformanceGoals" class="text-danger"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label asp-for="AppraiserID" class="form-label text-white fw-bold"></label>
+                <select asp-for="AppraiserID" asp-items="@ViewBag.ReportList" class="form-control fw-bold">
+                    <option value="">Select</option>
+                </select>
+                <div><span asp-validation-for="AppraiserID" class="text-danger"></span></div>
             </div>
         </div>
         <div class="row">

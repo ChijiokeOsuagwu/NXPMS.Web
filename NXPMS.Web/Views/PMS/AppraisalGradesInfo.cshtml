@@ -79,35 +79,37 @@
                         }
                         else
                         {
-                            <table class="table table-sm table-hover">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th><span class="text-white fw-bolder">Description</span></th>
-                                        <th>
-                                            <span class="text-white fw-bolder">Score</span>
-                                        </th>
-                                        <th>
-                                            <span class="text-white fw-bolder">Rank</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-success">
-                                    @foreach (var item in Model.AppraisalCompetencyGradeList)
-                                    {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover">
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td class="p-2">
-                                                <span class="fw-bolder">@item.AppraisalGradeDescription</span>
-                                            </td>
-                                            <td class="p-2">
-                                                <span class="fw-bolder">@item.LowerBandScore</span>
-                                            </td>
-                                            <td class="p-2">
-                                                <span class="fw-bolder">@item.GradeRankDescription</span>
-                                            </td>
+                                            <th><span class="text-white fw-bolder">Description</span></th>
+                                            <th>
+                                                <span class="text-white fw-bolder">Score</span>
+                                            </th>
+                                            <th>
+                                                <span class="text-white fw-bolder">Rank</span>
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody class="table-success">
+                                        @foreach (var item in Model.AppraisalCompetencyGradeList)
+                                        {
+                                            <tr>
+                                                <td class="p-2">
+                                                    <span class="fw-bolder">@item.AppraisalGradeDescription</span>
+                                                </td>
+                                                <td class="p-2">
+                                                    <span class="fw-bolder">@item.LowerBandScore</span>
+                                                </td>
+                                                <td class="p-2">
+                                                    <span class="fw-bolder">@item.GradeRankDescription</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         }
 
                     </div>

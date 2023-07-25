@@ -31,72 +31,53 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
-        <form asp-controller="PMS" asp-action="ManageAppraisalKpa" method="post" autocomplete="off">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <input type="hidden" asp-for="ReviewHeaderId" />
-                    <input type="hidden" asp-for="ReviewMetricId" />
-                    <input type="hidden" asp-for="ReviewSessionId" />
-                    <input type="hidden" asp-for="ReviewYearId" />
-                    <input type="hidden" asp-for="AppraiseeId" />
-                    <label asp-for="ReviewMetricDescription" class="form-label text-white fw-bold"></label>
-                    <textarea asp-for="ReviewMetricDescription" class="form-control fw-bold" rows="3" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
-                    <div><span asp-validation-for="ReviewMetricDescription" class="text-danger"></span></div>
-                </div>
+    <form asp-controller="PMS" asp-action="ManageAppraisalKpa" method="post" autocomplete="off">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <input type="hidden" asp-for="ReviewHeaderId" />
+                <input type="hidden" asp-for="ReviewMetricId" />
+                <input type="hidden" asp-for="ReviewSessionId" />
+                <input type="hidden" asp-for="ReviewYearId" />
+                <input type="hidden" asp-for="AppraiseeId" />
+                <label asp-for="ReviewMetricDescription" class="form-label text-white fw-bold"></label>
+                <textarea asp-for="ReviewMetricDescription" class="form-control fw-bold" rows="3" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
+                <div><span asp-validation-for="ReviewMetricDescription" class="text-danger"></span></div>
             </div>
-            <div class="row">
-                <div class="col-md-6 mb-2">
-                    <label asp-for="ReviewMetricKpi" class="form-label text-white fw-bold"></label>
-                    <textarea asp-for="ReviewMetricKpi" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
-                    <div><span asp-validation-for="ReviewMetricKpi" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <label asp-for="ReviewMetricTarget" class="form-label text-white fw-bold"></label>
-                    <textarea asp-for="ReviewMetricTarget" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
-                    <div><span asp-validation-for="ReviewMetricTarget" class="text-danger"></span></div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label asp-for="ReviewMetricKpi" class="form-label text-white fw-bold"></label>
+                <textarea asp-for="ReviewMetricKpi" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
+                <div><span asp-validation-for="ReviewMetricKpi" class="text-danger"></span></div>
             </div>
-            <div class="row">
-                <div class="col-md-1 mb-3">
-                    <label asp-for="ReviewMetricWeightage" class="form-label text-white fw-bold"></label>
-                    <input asp-for="ReviewMetricWeightage" class="form-control" type="number" min="1.00" max="100.00" step="1" />
-                    <div><span asp-validation-for="ReviewMetricWeightage" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="MetricAppraiserId" class="form-label text-white fw-bold"></label>
-                    <select asp-for="MetricAppraiserId" asp-items="@ViewBag.ReportingLinesList" class="form-control">
-                        <option value=""> Select </option>
-                    </select>
-                    <div><span asp-validation-for="MetricAppraiserId" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="AppraiserDesignation" class="form-label text-white fw-bold"></label>
-                    <input asp-for="AppraiserDesignation" class="form-control" placeholder="">
-                    <div><span asp-validation-for="AppraiserDesignation" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="AppraiserRole" class="form-label text-white fw-bold"></label>
-                    <select asp-for="AppraiserRole" asp-items="@ViewBag.AppraiserRolesList" class="form-control">
-                        <option value=""> Select </option>
-                    </select>
-                    <div><span asp-validation-for="AppraiserRole" class="text-danger"></span></div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label asp-for="ReviewMetricTarget" class="form-label text-white fw-bold"></label>
+                <textarea asp-for="ReviewMetricTarget" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
+                <div><span asp-validation-for="ReviewMetricTarget" class="text-danger"></span></div>
             </div>
-            <div class="row">
-                <div class="col-md-12 mb-3 text-end">
-                    <a asp-controller="PMS" asp-action="AppraisalKpas" asp-route-id="@Model.ReviewHeaderId" class="btn btn-dark" style="width:100px" title="Back">
-                        <span class="text-white">Back</span>
-                    </a>
-                    <a asp-controller="PMS" asp-action="ManageAppraisalKpa" asp-route-id="@Model.ReviewHeaderId" asp-route-md="@Model.ReviewMetricId" class="btn btn-warning" style="width:100px" title="Clear">
-                        <span class="text-white">Clear</span>
-                    </a>
-                    @if (!Model.OperationIsSuccessful)
-                    {
-                        <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
-                    }
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label asp-for="ReviewMetricWeightage" class="form-label text-white fw-bold"></label>
+                <input asp-for="ReviewMetricWeightage" class="form-control" type="number" min="1.00" max="100.00" step="1" />
+                <div><span asp-validation-for="ReviewMetricWeightage" class="text-danger"></span></div>
             </div>
-        </form>
+            <div class="col-md-10 text-end">
+                <a asp-controller="PMS" asp-action="AppraisalKpas" asp-route-id="@Model.ReviewHeaderId" class="btn btn-dark" style="width:100px" title="Back">
+                    <span class="text-white">Back</span>
+                </a>
+                <a asp-controller="PMS" asp-action="ManageAppraisalKpa" asp-route-id="@Model.ReviewHeaderId" asp-route-md="@Model.ReviewMetricId" class="btn btn-warning" style="width:100px" title="Clear">
+                    <span class="text-white">Clear</span>
+                </a>
+                @if (!Model.OperationIsSuccessful)
+                {
+                    <button type="submit" class="btn btn-success" title="Save" style="width:200px"><span class="text-white">Save</span></button>
+                }
+            </div>
+        </div>
+    </form>
     </div>
 </div>
 

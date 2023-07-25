@@ -32,7 +32,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("t.rvw_typ_nm, s.is_ctv FROM public.pmsrvwsxns s ");
             sb.Append("INNER JOIN public.pmssttyrs y ON y.pms_yr_id = s.rvw_yr_id ");
             sb.Append("INNER JOIN public.pmsrvwtyps t ON t.rvw_typ_id = s.rvw_typ_id ");
-            sb.Append("ORDER BY s.rvw_sxn_id DESC;");
+            sb.Append("ORDER BY s.rvw_ndt_dt DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -81,7 +81,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("s.is_ctv FROM public.pmsrvwsxns s ");
             sb.Append("INNER JOIN public.pmssttyrs y ON y.pms_yr_id = s.rvw_yr_id ");
             sb.Append("INNER JOIN public.pmsrvwtyps t ON t.rvw_typ_id = s.rvw_typ_id ");
-            sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id); ");
+            sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ORDER BY s.rvw_ndt_dt DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -133,7 +133,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("s.is_ctv FROM public.pmsrvwsxns s ");
             sb.Append("INNER JOIN public.pmssttyrs y ON y.pms_yr_id = s.rvw_yr_id ");
             sb.Append("INNER JOIN public.pmsrvwtyps t ON t.rvw_typ_id = s.rvw_typ_id ");
-            sb.Append("WHERE (s.rvw_yr_id = @rvw_yr_id) ORDER BY s.rvw_sxn_id DESC; ");
+            sb.Append("WHERE (s.rvw_yr_id = @rvw_yr_id) ORDER BY s.rvw_ndt_dt DESC; ");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -186,7 +186,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("INNER JOIN public.pmssttyrs y ON y.pms_yr_id = s.rvw_yr_id ");
             sb.Append("INNER JOIN public.pmsrvwtyps t ON t.rvw_typ_id = s.rvw_typ_id ");
             sb.Append("WHERE (LOWER(s.rvw_sxn_nm) = LOWER(@rvw_sxn_nm))");
-            sb.Append(" ORDER BY s.rvw_sxn_id DESC; ");
+            sb.Append(" ORDER BY s.rvw_ndt_dt DESC; ");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -226,7 +226,6 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             return reviewSessionsList;
         }
         #endregion
-
 
         #region Review Session Write Action Methods
         public async Task<bool> AddAsync(ReviewSession reviewSession)

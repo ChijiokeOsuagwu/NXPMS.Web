@@ -1,6 +1,13 @@
 ﻿@model NXPMS.Web.Models.PMSViewModels.AddCompetencyViewModel
 <h3>Appraisal Competency</h3>
 <hr />
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="PMS" asp-action="AppraisalCompetencies" asp-route-id="@Model.ReviewHeaderId" title="Go Back" class="btn btn-outline-light text-dark">
+            <i class="bi bi-backspace fw-bolder" style="font-size: 1.1rem;"></i><span class="fw-bold ml-2" style="font-size: 1.0rem;">Back</span>
+        </a>
+    </div>
+</div>
 <div class="card mt-1">
     <div class="card-header" style="background-color:#5b2c6f">
         <h4 class="text-white">Edit Competency</h4>
@@ -44,34 +51,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 mb-3">
+                <div class="col-md-2">
                     <label asp-for="ReviewMetricWeightage" class="form-label text-dark fw-bold"></label>
                     <input asp-for="ReviewMetricWeightage" class="form-control" type="number" min="1.00" max="100.00" step="1" />
                     <div><span asp-validation-for="ReviewMetricWeightage" class="text-danger"></span></div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="MetricAppraiserId" class="form-label text-dark fw-bold"></label>
-                    <select asp-for="MetricAppraiserId" asp-items="@ViewBag.ReportingLinesList" class="form-control">
-                        <option value=""> Select </option>
-                    </select>
-                    <div><span asp-validation-for="MetricAppraiserId" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="AppraiserDesignation" class="form-label text-dark fw-bold"></label>
-                    <input asp-for="AppraiserDesignation" class="form-control" placeholder="">
-                    <div><span asp-validation-for="AppraiserDesignation" class="text-danger"></span></div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="AppraiserRole" class="form-label text-dark fw-bold"></label>
-                    <select asp-for="AppraiserRole" asp-items="@ViewBag.AppraiserRolesList" class="form-control">
-                        <option value=""> Select </option>
-                    </select>
-                    <div><span asp-validation-for="AppraiserRole" class="text-danger"></span></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-end">
-                    <a asp-controller="PMS" asp-action="MyAppraisalSteps" asp-route-id="@Model.ReviewSessionId" class="btn btn-dark" style="width: 100px" title="Back">
+                <div class="col-md-10 text-end">
+                    <a asp-controller="PMS" asp-action="AppraisalCompetencies" asp-route-id="@Model.ReviewHeaderId" class="btn btn-dark" style="width: 100px" title="Back">
                         <span class="text-white">Back</span>
                     </a>
                     @if (!Model.OperationIsSuccessful)

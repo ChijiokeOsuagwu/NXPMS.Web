@@ -1,0 +1,88 @@
+﻿
+@model NXPMS.Web.Models.SettingsModels.DepartmentListViewModel
+<div class="container">
+    <h3 class="mb-1">Department Settings</h3>
+    <hr />
+    <div class="mb-1">
+        <div class="row">
+            <div class="col-md-2 mb-1 text-start">
+                <a asp-controller="Settings" asp-action="Index" class="btn btn-dark" style="width:100px" title="Back">
+                    <span class="text-white">Back</span>
+                </a>
+            </div>
+            <div class="col-md-10 mb-1 text-end">
+                <a asp-controller="Settings" asp-action="ManageDepartment" asp-route-cd="" class="btn btn-success" style="width:150px" title="Add New Department">
+                    <span class="text-white">New Department</span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model == null || Model.DepartmentList == null || Model.DepartmentList.Count < 1)
+            {
+                <div class="alert alert-info fade show" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    <span class="fw-bold">No record was found.</span>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>
+                                    <div class="text-center">
+                                        <span class="text-white fw-bolder">Code</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <span class="text-white fw-bolder">Name</span>
+                                </th>
+                                <th>
+                                    <span class="text-white fw-bolder">Head</span>
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-warning">
+                            @foreach (var item in Model.DepartmentList)
+                            {
+                                <tr>
+                                    <td class="p-2">
+                                        <div class="text-center">
+                                            <span class="fw-bolder">@item.DepartmentCode</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-2">
+                                        <span class="fw-bolder">@item.DepartmentName</span>
+                                    </td>
+                                    <td class="p-2">
+                                        <span class="fw-bolder">@item.DepartmentHeadName</span>
+                                    </td>
+                                    <td class="p-2">
+                                        <div class="cold-md-12 text-end">
+                                            <a asp-controller="Settings" asp-action="ManageDepartment" asp-route-cd="@item.DepartmentCode" title="Edit" class="btn btn-sm btn-info" style="width:75px">
+                                                <span class="text-white fw-bold">Edit</span>
+                                            </a>
+                                            <a asp-controller="Settings" asp-action="DepartmentDetail" asp-route-cd="@item.DepartmentCode" title="Detail" class="btn btn-sm btn-dark" style="width:75px">
+                                                <span class="text-white fw-bold">Detail</span>
+                                            </a>
+                                            <a asp-controller="Settings" asp-action="DeleteDepartment" asp-route-cd="@item.DepartmentCode" title="Delete" class="btn btn-sm btn-danger" style="width:75px">
+                                                <span class="text-white fw-bold">Delete</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+

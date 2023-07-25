@@ -1,0 +1,80 @@
+﻿@model NXPMS.Web.Models.SettingsModels.ManageUnitViewModel
+<h3>Unit Settings</h3>
+<hr />
+<div class="card mt-1" style="max-width:600px">
+    <div class="card-header bg-dark">
+            <h4 class="text-white">Delete Unit</h4>
+    </div>
+    <div class="card-body" style="background-color:#edbb99">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <form asp-controller="Settings" asp-action="DeleteUnit" method="post" autocomplete="off">
+            <div class="row">
+                <div class="col-md-2 mb-2">
+                    <label asp-for="UnitCode" class="form-label text-dark fw-bold"></label>
+                        <input asp-for="UnitCode" class="form-control fw-bold" readonly="readonly">
+                </div>
+                <div class="col-md-10 mb-2">
+                    <input type="hidden" asp-for="UnitHeadID" />
+                    <input type="hidden" asp-for="UnitAltHeadID" />
+                    <input type="hidden" asp-for="OldCode" />
+                    <input type="hidden" asp-for="IsUpdate" />
+                    <label asp-for="UnitName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="UnitName" class="form-control fw-bold" readonly="readonly">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <label asp-for="DepartmentName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="DepartmentName" class="form-control fw-bold" readonly="readonly">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <label asp-for="UnitHeadName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="UnitHeadName" class="form-control fw-bold"  readonly="readonly">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="UnitAltHeadName" class="form-label text-dark fw-bold"></label>
+                    <input asp-for="UnitAltHeadName" class="form-control fw-bold" readonly="readonly">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-1 text-end">
+                    <a asp-controller="Settings" asp-action="UnitList" class="btn btn-secondary" style="width:100px" title="Back">
+                        <span class="text-white">Back</span>
+                    </a>
+
+                    @if (!Model.OperationIsSuccessful)
+                    {
+                        <button type="submit" class="btn btn-dark" title="Delete" style="width:200px" onclick="return confirm('This Unit will be deleted permanently. Do you still want to proceed?')"><span class="text-white">Delete</span></button>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

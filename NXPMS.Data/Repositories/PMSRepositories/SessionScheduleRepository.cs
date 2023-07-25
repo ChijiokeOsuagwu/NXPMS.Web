@@ -276,7 +276,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
-            sb.Append("AND (s.schd_typ_id = @schd_typ_id); ");
+            sb.Append("AND (s.schd_typ_id = @schd_typ_id) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -354,7 +355,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgdpts d ON d.dept_cd = s.schd_dpt_id ");
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
-            sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id); ");
+            sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -431,7 +433,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
-            sb.Append("AND (s.schd_act_typ = @schd_act_typ); ");
+            sb.Append("AND (s.schd_act_typ = @schd_act_typ) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -512,7 +515,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
-            sb.Append("AND (s.schd_loc_id = @schd_loc_id);");
+            sb.Append("AND (s.schd_loc_id = @schd_loc_id) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -594,7 +598,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
             sb.Append("AND (s.schd_loc_id = @schd_loc_id) ");
-            sb.Append("AND (s.schd_act_typ = @schd_act_typ);");
+            sb.Append("AND (s.schd_act_typ = @schd_act_typ) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -677,7 +682,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
-            sb.Append("AND (LOWER(s.schd_dpt_id) = LOWER(@schd_dpt_id));");
+            sb.Append("AND (LOWER(s.schd_dpt_id) = LOWER(@schd_dpt_id)) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -759,7 +765,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
             sb.Append("AND (LOWER(s.schd_dpt_id) = LOWER(@schd_dpt_id)) ");
-            sb.Append("AND (s.schd_act_typ = @schd_act_typ);");
+            sb.Append("AND (s.schd_act_typ = @schd_act_typ) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
+
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -842,7 +850,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = s.schd_unt_id ");
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
-            sb.Append("AND (LOWER(s.schd_unt_id) = LOWER(@schd_unt_id)); ");
+            sb.Append("AND (LOWER(s.schd_unt_id) = LOWER(@schd_unt_id)) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -924,7 +933,8 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             sb.Append("LEFT JOIN public.ermempinf e ON e.empid = s.schd_emp_id ");
             sb.Append("WHERE (s.rvw_sxn_id = @rvw_sxn_id) ");
             sb.Append("AND (LOWER(s.schd_unt_id) = LOWER(@schd_unt_id)) ");
-            sb.Append("AND (s.schd_act_typ = @schd_act_typ);");
+            sb.Append("AND (s.schd_act_typ = @schd_act_typ) ");
+            sb.Append("ORDER BY s.sxn_schd_id DESC;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -979,6 +989,187 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             return sessionSchedulesList;
         }
 
+        #endregion
+
+        #region Employee Session Schedule Read Action Methods
+        public async Task<List<SessionActivityType>> GetForAllAsync(int reviewSessionId)
+        {
+            List<SessionActivityType> sessionScheduledActivityList = new List<SessionActivityType>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT schd_act_typ ");
+            sb.Append("FROM public.pmsschdls ");
+            sb.Append("WHERE (rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (schd_typ_id = 0) AND (schd_isc = false) ");
+            sb.Append("AND (@schdl_dt BETWEEN schd_str_dt AND schd_ndt_dt); ");
+
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var schdl_dt = cmd.Parameters.Add("@schdl_dt", NpgsqlDbType.TimestampTz);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                schdl_dt.Value = DateTime.UtcNow;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    sessionScheduledActivityList.Add(
+                         reader["schd_act_typ"] == DBNull.Value ? SessionActivityType.AllActivities : (SessionActivityType)reader["schd_act_typ"]
+                    );
+                }
+            }
+            await conn.CloseAsync();
+            return sessionScheduledActivityList;
+        }
+
+        public async Task<List<SessionActivityType>> GetForLocationAsync(int reviewSessionId, int locationId)
+        {
+            List<SessionActivityType> sessionScheduledActivityList = new List<SessionActivityType>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT schd_act_typ ");
+            sb.Append("FROM public.pmsschdls ");
+            sb.Append("WHERE (rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (schd_typ_id = 1) AND (schd_isc = false) ");
+            sb.Append("AND (schd_loc_id = @schd_loc_id) ");
+            sb.Append("AND (@schdl_dt BETWEEN schd_str_dt AND schd_ndt_dt); ");
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var schd_loc_id = cmd.Parameters.Add("@schd_loc_id", NpgsqlDbType.Integer);
+                var schdl_dt = cmd.Parameters.Add("@schdl_dt", NpgsqlDbType.TimestampTz);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                schd_loc_id.Value = locationId;
+                schdl_dt.Value = DateTime.UtcNow;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    sessionScheduledActivityList.Add(
+                         reader["schd_act_typ"] == DBNull.Value ? SessionActivityType.AllActivities : (SessionActivityType)reader["schd_act_typ"]
+                    );
+                }
+            }
+            await conn.CloseAsync();
+            return sessionScheduledActivityList;
+        }
+
+        public async Task<List<SessionActivityType>> GetForDepartmentAsync(int reviewSessionId, string departmentCode)
+        {
+            List<SessionActivityType> sessionScheduledActivityList = new List<SessionActivityType>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT schd_act_typ ");
+            sb.Append("FROM public.pmsschdls ");
+            sb.Append("WHERE (rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (schd_typ_id = 2) AND (schd_isc = false) ");
+            sb.Append("AND (LOWER(schd_dpt_id) = LOWER(@schd_dpt_id)) ");
+            sb.Append("AND (@schdl_dt BETWEEN schd_str_dt AND schd_ndt_dt); ");
+
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var schd_dpt_id = cmd.Parameters.Add("@schd_dpt_id", NpgsqlDbType.Text);
+                var schdl_dt = cmd.Parameters.Add("@schdl_dt", NpgsqlDbType.TimestampTz);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                schd_dpt_id.Value = departmentCode;
+                schdl_dt.Value = DateTime.UtcNow;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    sessionScheduledActivityList.Add(
+                         reader["schd_act_typ"] == DBNull.Value ? SessionActivityType.AllActivities : (SessionActivityType)reader["schd_act_typ"]
+                    );
+                }
+            }
+            await conn.CloseAsync();
+            return sessionScheduledActivityList;
+        }
+
+        public async Task<List<SessionActivityType>> GetForUnitAsync(int reviewSessionId, string unitCode)
+        {
+            List<SessionActivityType> sessionScheduledActivityList = new List<SessionActivityType>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT schd_act_typ ");
+            sb.Append("FROM public.pmsschdls ");
+            sb.Append("WHERE (rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (schd_typ_id = 2) AND (schd_isc = false) ");
+            sb.Append("AND (LOWER(schd_unt_id) = LOWER(@schd_unt_id)) ");
+            sb.Append("AND (@schdl_dt BETWEEN schd_str_dt AND schd_ndt_dt); ");
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var schd_unt_id = cmd.Parameters.Add("@schd_unt_id", NpgsqlDbType.Text);
+                var schdl_dt = cmd.Parameters.Add("@schdl_dt", NpgsqlDbType.TimestampTz);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                schd_unt_id.Value = unitCode;
+                schdl_dt.Value = DateTime.UtcNow;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    sessionScheduledActivityList.Add(
+                         reader["schd_act_typ"] == DBNull.Value ? SessionActivityType.AllActivities : (SessionActivityType)reader["schd_act_typ"]
+                    );
+                }
+            }
+            await conn.CloseAsync();
+            return sessionScheduledActivityList;
+        }
+
+        public async Task<List<SessionActivityType>> GetForEmployeeAsync(int reviewSessionId, int employeeId)
+        {
+            List<SessionActivityType> sessionScheduledActivityList = new List<SessionActivityType>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT schd_act_typ ");
+            sb.Append("FROM public.pmsschdls ");
+            sb.Append("WHERE (rvw_sxn_id = @rvw_sxn_id) ");
+            sb.Append("AND (schd_typ_id = 2) AND (schd_isc = false) ");
+            sb.Append("AND (schd_emp_id = @schd_emp_id) ");
+            sb.Append("AND (@schdl_dt BETWEEN schd_str_dt AND schd_ndt_dt); ");
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_sxn_id = cmd.Parameters.Add("@rvw_sxn_id", NpgsqlDbType.Integer);
+                var schd_emp_id = cmd.Parameters.Add("@schd_emp_id", NpgsqlDbType.Integer);
+                var schdl_dt = cmd.Parameters.Add("@schdl_dt", NpgsqlDbType.TimestampTz);
+                await cmd.PrepareAsync();
+                rvw_sxn_id.Value = reviewSessionId;
+                schd_emp_id.Value = employeeId;
+                schdl_dt.Value = DateTime.UtcNow;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    sessionScheduledActivityList.Add(
+                         reader["schd_act_typ"] == DBNull.Value ? SessionActivityType.AllActivities : (SessionActivityType)reader["schd_act_typ"]
+                    );
+                }
+            }
+            await conn.CloseAsync();
+            return sessionScheduledActivityList;
+        }
 
         #endregion
 

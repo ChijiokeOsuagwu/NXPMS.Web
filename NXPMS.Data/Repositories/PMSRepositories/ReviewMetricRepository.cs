@@ -26,15 +26,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
             sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg, ");
-            sb.Append("m.aprsr_id, m.aprsr_dsgn, m.aprsr_role, h.rvw_emp_id, ");
-            sb.Append("h.pry_apr_id, s.rvw_sxn_nm, e.fullname AS aprsr_nm,  ");
+            sb.Append("h.rvw_emp_id, h.pry_apr_id, s.rvw_sxn_nm, ");
             sb.Append("f.fullname AS pry_apr_nm, a.fullname AS rvw_emp_nm, ");
             sb.Append("CASE m.mtrc_typ_id WHEN 0 THEN 'KPA' WHEN 1 THEN 'Competency' ");
             sb.Append("END mtrc_typ_ds FROM public.pmsrvwmtrcs m ");
             sb.Append("INNER JOIN public.pmsrvwhdrs h ON h.rvw_hdr_id = m.rvw_hdr_id ");
             sb.Append("INNER JOIN public.pmsrvwsxns s ON s.rvw_sxn_id = m.rvw_sxn_id ");
             sb.Append("INNER JOIN public.ermempinf a ON a.empid = h.rvw_emp_id ");
-            sb.Append("LEFT JOIN public.ermempinf e ON e.empid = m.aprsr_id ");
             sb.Append("LEFT JOIN public.ermempinf f ON f.empid = h.pry_apr_id ");
             sb.Append("WHERE (m.rvw_hdr_id = @rvw_hdr_id); ");
             string query = sb.ToString();
@@ -61,13 +59,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                         ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
                         ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
                         ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
-                        MetricAppraiserId = reader["aprsr_id"] == DBNull.Value ? (int?)null : (int)reader["aprsr_id"],
-                        AppraiserDesignation = reader["aprsr_dsgn"] == DBNull.Value ? string.Empty : reader["aprsr_dsgn"].ToString(),
-                        AppraiserRole = reader["aprsr_role"] == DBNull.Value ? string.Empty : reader["aprsr_role"].ToString(),
                         AppraiseeId = reader["rvw_emp_id"] == DBNull.Value ? 0 : (int)reader["rvw_emp_id"],
                         PrimaryAppraiserId = reader["pry_apr_id"] == DBNull.Value ? 0 : (int)reader["pry_apr_id"],
                         ReviewSessionDescription = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
-                        MetricAppraiserName = reader["aprsr_nm"] == DBNull.Value ? string.Empty : reader["aprsr_nm"].ToString(),
                         PrimaryAppraiserName = reader["pry_apr_nm"] == DBNull.Value ? string.Empty : reader["pry_apr_nm"].ToString(),
                         AppraiseeName = reader["rvw_emp_nm"] == DBNull.Value ? string.Empty : reader["rvw_emp_nm"].ToString(),
                     });
@@ -84,15 +78,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
             sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg, ");
-            sb.Append("m.aprsr_id, m.aprsr_dsgn, m.aprsr_role, h.rvw_emp_id, ");
-            sb.Append("h.pry_apr_id, s.rvw_sxn_nm, e.fullname AS aprsr_nm,  ");
+            sb.Append("h.rvw_emp_id, h.pry_apr_id, s.rvw_sxn_nm, ");
             sb.Append("f.fullname AS pry_apr_nm, a.fullname AS rvw_emp_nm, ");
             sb.Append("CASE m.mtrc_typ_id WHEN 0 THEN 'KPA' WHEN 1 THEN 'Competency' ");
             sb.Append("END mtrc_typ_ds FROM public.pmsrvwmtrcs m ");
             sb.Append("INNER JOIN public.pmsrvwhdrs h ON h.rvw_hdr_id = m.rvw_hdr_id ");
             sb.Append("INNER JOIN public.pmsrvwsxns s ON s.rvw_sxn_id = m.rvw_sxn_id ");
             sb.Append("INNER JOIN public.ermempinf a ON a.empid = h.rvw_emp_id ");
-            sb.Append("LEFT JOIN public.ermempinf e ON e.empid = m.aprsr_id ");
             sb.Append("LEFT JOIN public.ermempinf f ON f.empid = h.pry_apr_id ");
             sb.Append("WHERE (m.rvw_hdr_id = @rvw_hdr_id) ");
             sb.Append("AND (LOWER(m.mtrc_ds) = LOWER(@mtrc_ds));");
@@ -122,13 +114,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                         ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
                         ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
                         ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
-                        MetricAppraiserId = reader["aprsr_id"] == DBNull.Value ? (int?)null : (int)reader["aprsr_id"],
-                        AppraiserDesignation = reader["aprsr_dsgn"] == DBNull.Value ? string.Empty : reader["aprsr_dsgn"].ToString(),
-                        AppraiserRole = reader["aprsr_role"] == DBNull.Value ? string.Empty : reader["aprsr_role"].ToString(),
                         AppraiseeId = reader["rvw_emp_id"] == DBNull.Value ? 0 : (int)reader["rvw_emp_id"],
                         PrimaryAppraiserId = reader["pry_apr_id"] == DBNull.Value ? 0 : (int)reader["pry_apr_id"],
                         ReviewSessionDescription = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
-                        MetricAppraiserName = reader["aprsr_nm"] == DBNull.Value ? string.Empty : reader["aprsr_nm"].ToString(),
                         PrimaryAppraiserName = reader["pry_apr_nm"] == DBNull.Value ? string.Empty : reader["pry_apr_nm"].ToString(),
                         AppraiseeName = reader["rvw_emp_nm"] == DBNull.Value ? string.Empty : reader["rvw_emp_nm"].ToString(),
                     });
@@ -145,15 +133,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
             sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg, ");
-            sb.Append("m.aprsr_id, m.aprsr_dsgn, m.aprsr_role, h.rvw_emp_id, ");
-            sb.Append("h.pry_apr_id, s.rvw_sxn_nm, e.fullname AS aprsr_nm,  ");
+            sb.Append("h.rvw_emp_id, h.pry_apr_id, s.rvw_sxn_nm, ");
             sb.Append("f.fullname AS pry_apr_nm, a.fullname AS rvw_emp_nm, ");
             sb.Append("CASE m.mtrc_typ_id WHEN 0 THEN 'KPA' WHEN 1 THEN 'Competency' ");
             sb.Append("END mtrc_typ_ds FROM public.pmsrvwmtrcs m ");
             sb.Append("INNER JOIN public.pmsrvwhdrs h ON h.rvw_hdr_id = m.rvw_hdr_id ");
             sb.Append("INNER JOIN public.pmsrvwsxns s ON s.rvw_sxn_id = m.rvw_sxn_id ");
             sb.Append("INNER JOIN public.ermempinf a ON a.empid = h.rvw_emp_id ");
-            sb.Append("LEFT JOIN public.ermempinf e ON e.empid = m.aprsr_id ");
             sb.Append("LEFT JOIN public.ermempinf f ON f.empid = h.pry_apr_id ");
             sb.Append("WHERE (m.rvw_hdr_id = @rvw_hdr_id) ");
             sb.Append("AND (m.mtrc_typ_id = 0); ");
@@ -181,13 +167,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                         ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
                         ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
                         ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
-                        MetricAppraiserId = reader["aprsr_id"] == DBNull.Value ? (int?)null : (int)reader["aprsr_id"],
-                        AppraiserDesignation = reader["aprsr_dsgn"] == DBNull.Value ? string.Empty : reader["aprsr_dsgn"].ToString(),
-                        AppraiserRole = reader["aprsr_role"] == DBNull.Value ? string.Empty : reader["aprsr_role"].ToString(),
                         AppraiseeId = reader["rvw_emp_id"] == DBNull.Value ? 0 : (int)reader["rvw_emp_id"],
                         PrimaryAppraiserId = reader["pry_apr_id"] == DBNull.Value ? 0 : (int)reader["pry_apr_id"],
                         ReviewSessionDescription = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
-                        MetricAppraiserName = reader["aprsr_nm"] == DBNull.Value ? string.Empty : reader["aprsr_nm"].ToString(),
                         PrimaryAppraiserName = reader["pry_apr_nm"] == DBNull.Value ? string.Empty : reader["pry_apr_nm"].ToString(),
                         AppraiseeName = reader["rvw_emp_nm"] == DBNull.Value ? string.Empty : reader["rvw_emp_nm"].ToString(),
                     });
@@ -204,15 +186,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
             sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg, ");
-            sb.Append("m.aprsr_id, m.aprsr_dsgn, m.aprsr_role, h.rvw_emp_id, ");
-            sb.Append("h.pry_apr_id, s.rvw_sxn_nm, e.fullname AS aprsr_nm,  ");
+            sb.Append("h.rvw_emp_id, h.pry_apr_id, s.rvw_sxn_nm, ");
             sb.Append("f.fullname AS pry_apr_nm, a.fullname AS rvw_emp_nm, ");
             sb.Append("CASE m.mtrc_typ_id WHEN 0 THEN 'KPA' WHEN 1 THEN 'Competency' ");
             sb.Append("END mtrc_typ_ds FROM public.pmsrvwmtrcs m ");
             sb.Append("INNER JOIN public.pmsrvwhdrs h ON h.rvw_hdr_id = m.rvw_hdr_id ");
             sb.Append("INNER JOIN public.pmsrvwsxns s ON s.rvw_sxn_id = m.rvw_sxn_id ");
             sb.Append("INNER JOIN public.ermempinf a ON a.empid = h.rvw_emp_id ");
-            sb.Append("LEFT JOIN public.ermempinf e ON e.empid = m.aprsr_id ");
             sb.Append("LEFT JOIN public.ermempinf f ON f.empid = h.pry_apr_id ");
             sb.Append("WHERE (m.rvw_hdr_id = @rvw_hdr_id) ");
             sb.Append("AND (m.mtrc_typ_id = 1); ");
@@ -240,13 +220,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                         ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
                         ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
                         ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
-                        MetricAppraiserId = reader["aprsr_id"] == DBNull.Value ? (int?)null : (int)reader["aprsr_id"],
-                        AppraiserDesignation = reader["aprsr_dsgn"] == DBNull.Value ? string.Empty : reader["aprsr_dsgn"].ToString(),
-                        AppraiserRole = reader["aprsr_role"] == DBNull.Value ? string.Empty : reader["aprsr_role"].ToString(),
                         AppraiseeId = reader["rvw_emp_id"] == DBNull.Value ? 0 : (int)reader["rvw_emp_id"],
                         PrimaryAppraiserId = reader["pry_apr_id"] == DBNull.Value ? 0 : (int)reader["pry_apr_id"],
                         ReviewSessionDescription = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
-                        MetricAppraiserName = reader["aprsr_nm"] == DBNull.Value ? string.Empty : reader["aprsr_nm"].ToString(),
                         PrimaryAppraiserName = reader["pry_apr_nm"] == DBNull.Value ? string.Empty : reader["pry_apr_nm"].ToString(),
                         AppraiseeName = reader["rvw_emp_nm"] == DBNull.Value ? string.Empty : reader["rvw_emp_nm"].ToString(),
                     });
@@ -263,15 +239,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
             sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg, ");
-            sb.Append("m.aprsr_id, m.aprsr_dsgn, m.aprsr_role, h.rvw_emp_id, ");
-            sb.Append("h.pry_apr_id, s.rvw_sxn_nm, e.fullname AS aprsr_nm,  ");
+            sb.Append("h.rvw_emp_id, h.pry_apr_id, s.rvw_sxn_nm, ");
             sb.Append("f.fullname AS pry_apr_nm, a.fullname AS rvw_emp_nm, ");
             sb.Append("CASE m.mtrc_typ_id WHEN 0 THEN 'KPA' WHEN 1 THEN 'Competency' ");
             sb.Append("END mtrc_typ_ds FROM public.pmsrvwmtrcs m ");
             sb.Append("INNER JOIN public.pmsrvwhdrs h ON h.rvw_hdr_id = m.rvw_hdr_id ");
             sb.Append("INNER JOIN public.pmsrvwsxns s ON s.rvw_sxn_id = m.rvw_sxn_id ");
             sb.Append("INNER JOIN public.ermempinf a ON a.empid = h.rvw_emp_id ");
-            sb.Append("LEFT JOIN public.ermempinf e ON e.empid = m.aprsr_id ");
             sb.Append("LEFT JOIN public.ermempinf f ON f.empid = h.pry_apr_id ");
             sb.Append("WHERE (m.rvw_mtrc_id = @rvw_mtrc_id); ");
             string query = sb.ToString();
@@ -298,13 +272,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                         ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
                         ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
                         ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
-                        MetricAppraiserId = reader["aprsr_id"] == DBNull.Value ? (int?)null : (int)reader["aprsr_id"],
-                        AppraiserDesignation = reader["aprsr_dsgn"] == DBNull.Value ? string.Empty : reader["aprsr_dsgn"].ToString(),
-                        AppraiserRole = reader["aprsr_role"] == DBNull.Value ? string.Empty : reader["aprsr_role"].ToString(),
                         AppraiseeId = reader["rvw_emp_id"] == DBNull.Value ? 0 : (int)reader["rvw_emp_id"],
                         PrimaryAppraiserId = reader["pry_apr_id"] == DBNull.Value ? 0 : (int)reader["pry_apr_id"],
                         ReviewSessionDescription = reader["rvw_sxn_nm"] == DBNull.Value ? string.Empty : reader["rvw_sxn_nm"].ToString(),
-                        MetricAppraiserName = reader["aprsr_nm"] == DBNull.Value ? string.Empty : reader["aprsr_nm"].ToString(),
                         PrimaryAppraiserName = reader["pry_apr_nm"] == DBNull.Value ? string.Empty : reader["pry_apr_nm"].ToString(),
                         AppraiseeName = reader["rvw_emp_nm"] == DBNull.Value ? string.Empty : reader["rvw_emp_nm"].ToString(),
                     });
@@ -357,7 +327,10 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                 rvw_hdr_id.Value = reviewHeaderId;
 
                 var wt = await cmd.ExecuteScalarAsync();
-                total_weightage = (decimal)wt;
+                if (wt != null && wt != DBNull.Value)
+                { 
+                    total_weightage = (decimal)wt;
+                }
             }
             await conn.CloseAsync();
             return total_weightage;
@@ -413,6 +386,54 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             return total_weightage;
         }
 
+        public async Task<IList<ReviewMetric>> GetUnevaluatedByMetricTypeIdAsync(int reviewHeaderId, int appraiserId, int metricTypeId)
+        {
+            List<ReviewMetric> reviewMetricList = new List<ReviewMetric>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT m.rvw_mtrc_id, m.rvw_hdr_id, m.rvw_sxn_id, m.rvw_yr_id, ");
+            sb.Append("m.mtrc_typ_id, m.mtrc_ds, m.mtrc_kpi, m.mtrc_tgt, m.mtrc_wtg ");
+            sb.Append("FROM public.pmsrvwmtrcs m ");
+            sb.Append("WHERE (m.rvw_hdr_id = @rvw_hdr_id) AND (m.mtrc_typ_id = @mtrc_typ_id) ");
+            sb.Append("AND (m.rvw_mtrc_id NOT IN (SELECT rvw_mtric_id ");
+            sb.Append("FROM public.pmsrvwrdtls d WHERE d.rvw_hdr_id = @rvw_hdr_id ");
+            sb.Append("AND d.rvw_aprsr_id = @rvw_aprsr_id));");
+
+            string query = sb.ToString();
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rvw_hdr_id = cmd.Parameters.Add("@rvw_hdr_id", NpgsqlDbType.Integer);
+                var rvw_aprsr_id = cmd.Parameters.Add("@rvw_aprsr_id", NpgsqlDbType.Integer);
+                var mtrc_typ_id = cmd.Parameters.Add("@mtrc_typ_id", NpgsqlDbType.Integer);
+                await cmd.PrepareAsync();
+                rvw_hdr_id.Value = reviewHeaderId;
+                rvw_aprsr_id.Value = appraiserId;
+                mtrc_typ_id.Value = metricTypeId;
+
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    reviewMetricList.Add(new ReviewMetric()
+                    {
+                        ReviewMetricId = reader["rvw_mtrc_id"] == DBNull.Value ? 0 : (int)reader["rvw_mtrc_id"],
+                        ReviewHeaderId = reader["rvw_hdr_id"] == DBNull.Value ? 0 : (int)reader["rvw_hdr_id"],
+                        ReviewSessionId = reader["rvw_sxn_id"] == DBNull.Value ? 0 : (int)reader["rvw_sxn_id"],
+                        ReviewYearId = reader["rvw_yr_id"] == DBNull.Value ? 0 : (int)reader["rvw_yr_id"],
+                        ReviewMetricTypeId = reader["mtrc_typ_id"] == DBNull.Value ? 0 : (int)reader["mtrc_typ_id"],
+                        ReviewMetricDescription = reader["mtrc_ds"] == DBNull.Value ? string.Empty : reader["mtrc_ds"].ToString(),
+                        ReviewMetricKpi = reader["mtrc_kpi"] == DBNull.Value ? string.Empty : reader["mtrc_kpi"].ToString(),
+                        ReviewMetricTarget = reader["mtrc_tgt"] == DBNull.Value ? string.Empty : reader["mtrc_tgt"].ToString(),
+                        ReviewMetricWeightage = reader["mtrc_wtg"] == DBNull.Value ? 0.00M : (decimal)reader["mtrc_wtg"],
+                    });
+                }
+            }
+            await conn.CloseAsync();
+            return reviewMetricList;
+        }
+
+
         #endregion
 
         #region Review Metric Write Action Methods
@@ -422,10 +443,9 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("INSERT INTO public.pmsrvwmtrcs (rvw_hdr_id, rvw_sxn_id, ");
-            sb.Append("rvw_yr_id, mtrc_typ_id, mtrc_ds, mtrc_kpi, mtrc_tgt, mtrc_wtg, ");
-            sb.Append("aprsr_id, aprsr_dsgn, aprsr_role) VALUES (@rvw_hdr_id, @rvw_sxn_id, ");
-            sb.Append("@rvw_yr_id, @mtrc_typ_id, @mtrc_ds, @mtrc_kpi, @mtrc_tgt, @mtrc_wtg, ");
-            sb.Append("@aprsr_id, @aprsr_dsgn, @aprsr_role);");
+            sb.Append("rvw_yr_id, mtrc_typ_id, mtrc_ds, mtrc_kpi, mtrc_tgt, mtrc_wtg) ");
+            sb.Append("VALUES (@rvw_hdr_id, @rvw_sxn_id, @rvw_yr_id, @mtrc_typ_id, ");
+            sb.Append("@mtrc_ds, @mtrc_kpi, @mtrc_tgt, @mtrc_wtg); ");
 
             string query = sb.ToString();
             try
@@ -442,9 +462,6 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                     var mtrc_kpi = cmd.Parameters.Add("@mtrc_kpi", NpgsqlDbType.Text);
                     var mtrc_tgt = cmd.Parameters.Add("@mtrc_tgt", NpgsqlDbType.Text);
                     var mtrc_wtg = cmd.Parameters.Add("mtrc_wtg", NpgsqlDbType.Numeric);
-                    var aprsr_id = cmd.Parameters.Add("aprsr_id", NpgsqlDbType.Integer);
-                    var aprsr_dsgn = cmd.Parameters.Add("aprsr_dsgn", NpgsqlDbType.Text);
-                    var aprsr_role = cmd.Parameters.Add("aprsr_role", NpgsqlDbType.Text);
                     cmd.Prepare();
                     rvw_hdr_id.Value = reviewMetric.ReviewHeaderId;
                     rvw_sxn_id.Value = reviewMetric.ReviewSessionId;
@@ -454,9 +471,6 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                     mtrc_kpi.Value = reviewMetric.ReviewMetricKpi ?? (object)DBNull.Value;
                     mtrc_tgt.Value = reviewMetric.ReviewMetricTarget ?? (object)DBNull.Value;
                     mtrc_wtg.Value = reviewMetric.ReviewMetricWeightage;
-                    aprsr_id.Value = reviewMetric.MetricAppraiserId ?? (object)DBNull.Value; 
-                    aprsr_dsgn.Value = reviewMetric.AppraiserDesignation ?? (object)DBNull.Value;
-                    aprsr_role.Value = reviewMetric.AppraiserRole ?? (object)DBNull.Value;
 
                     rows = await cmd.ExecuteNonQueryAsync();
                 }
@@ -478,8 +492,7 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE public.pmsrvwmtrcs SET mtrc_ds=@mtrc_ds, ");
-            sb.Append("mtrc_kpi=@mtrc_kpi, mtrc_tgt=@mtrc_tgt, mtrc_wtg=@mtrc_wtg, ");
-            sb.Append("aprsr_id=@aprsr_id, aprsr_dsgn=@aprsr_dsgn, aprsr_role=@aprsr_role ");
+            sb.Append("mtrc_kpi=@mtrc_kpi, mtrc_tgt=@mtrc_tgt, mtrc_wtg=@mtrc_wtg ");
             sb.Append("WHERE (rvw_mtrc_id = @rvw_mtrc_id);");
 
             string query = sb.ToString();
@@ -493,9 +506,6 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                     var mtrc_kpi = cmd.Parameters.Add("@mtrc_kpi", NpgsqlDbType.Text);
                     var mtrc_tgt = cmd.Parameters.Add("@mtrc_tgt", NpgsqlDbType.Text);
                     var mtrc_wtg = cmd.Parameters.Add("mtrc_wtg", NpgsqlDbType.Numeric);
-                    var aprsr_id = cmd.Parameters.Add("aprsr_id", NpgsqlDbType.Integer);
-                    var aprsr_dsgn = cmd.Parameters.Add("aprsr_dsgn", NpgsqlDbType.Text);
-                    var aprsr_role = cmd.Parameters.Add("aprsr_role", NpgsqlDbType.Text);
                     var rvw_mtrc_id = cmd.Parameters.Add("@rvw_mtrc_id", NpgsqlDbType.Integer);
                     cmd.Prepare();
                     rvw_mtrc_id.Value = reviewMetric.ReviewMetricId;
@@ -503,9 +513,6 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                     mtrc_kpi.Value = reviewMetric.ReviewMetricKpi ?? (object)DBNull.Value;
                     mtrc_tgt.Value = reviewMetric.ReviewMetricTarget ?? (object)DBNull.Value;
                     mtrc_wtg.Value = reviewMetric.ReviewMetricWeightage;
-                    aprsr_id.Value = reviewMetric.MetricAppraiserId ?? (object)DBNull.Value;
-                    aprsr_dsgn.Value = reviewMetric.AppraiserDesignation ?? (object)DBNull.Value;
-                    aprsr_role.Value = reviewMetric.AppraiserRole ?? (object)DBNull.Value;
 
                     rows = await cmd.ExecuteNonQueryAsync();
                     await conn.CloseAsync();

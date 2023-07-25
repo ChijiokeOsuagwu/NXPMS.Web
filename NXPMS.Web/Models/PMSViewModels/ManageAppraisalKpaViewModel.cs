@@ -44,28 +44,12 @@ namespace NXPMS.Web.Models.PMSViewModels
         [Display(Name = "Weightage*")]
         public decimal ReviewMetricWeightage { get; set; }
 
-        [Display(Name = "Appraiser Name")]
-        public int? MetricAppraiserId { get; set; }
-
-        [Display(Name = "Appraiser Name")]
-        public string MetricAppraiserName { get; set; }
-
-        [Display(Name = "Appraiser Designation")]
-        public string AppraiserDesignation { get; set; }
-
-        [Display(Name = "Appraiser Role")]
-        public string AppraiserRole { get; set; }
-
         public ReviewMetric ConvertToReviewMetric()
         {
             return new ReviewMetric
             {
                 AppraiseeId = AppraiseeId,
                 AppraiseeName = AppraiseeName,
-                AppraiserDesignation = AppraiserDesignation,
-                AppraiserRole = AppraiserRole,
-                MetricAppraiserId = MetricAppraiserId,
-                MetricAppraiserName = MetricAppraiserName,
                 ReviewHeaderId = ReviewHeaderId,
                 ReviewMetricDescription = ReviewMetricDescription,
                 ReviewMetricId = ReviewMetricId ?? 0,

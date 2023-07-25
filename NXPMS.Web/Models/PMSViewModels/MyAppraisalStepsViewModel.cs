@@ -16,5 +16,9 @@ namespace NXPMS.Web.Models.PMSViewModels
         public int? ReviewHeaderId { get; set; }
         public int CurrentReviewStageId { get; set; }
         public string AppraiseeName { get; set; }
+        public bool IsActive { get; set; }
+        public bool AllActivitiesScheduled { get; set; }
+        public bool ContractDefinitionScheduled { get; set; }
+        public bool PerformanceEvaluationScheduled { get; set; }
     }
 }

@@ -608,7 +608,7 @@ namespace NXPMS.Data.Repositories.SecurityRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE public.syssctusr SET usr_afc = usr_afc + 1");
-            sb.Append("WHERE (LOWER(u.usr_nm) = LOWER(@usr_nm));");
+            sb.Append("WHERE (LOWER(usr_nm) = LOWER(@usr_nm));");
             string query = sb.ToString();
 
             await conn.OpenAsync();
@@ -631,7 +631,7 @@ namespace NXPMS.Data.Repositories.SecurityRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE public.syssctusr SET usr_afc = 0");
-            sb.Append("WHERE LOWER(u.usr_nm) = LOWER(@usr_nm);");
+            sb.Append("WHERE LOWER(usr_nm) = LOWER(@usr_nm);");
             string query = sb.ToString();
 
             await conn.OpenAsync();
@@ -655,7 +655,7 @@ namespace NXPMS.Data.Repositories.SecurityRepositories
             List<ApplicationUser> applicationUserList = new List<ApplicationUser>();
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             string query = String.Empty;
-            query = "SELECT usr_afc FROM public.syssctusr WHERE LOWER(u.usr_nm) = LOWER(@usr_nm); ";
+            query = "SELECT usr_afc FROM public.syssctusr WHERE LOWER(usr_nm) = LOWER(@usr_nm); ";
             await conn.OpenAsync();
             // Retrieve all rows
             using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
@@ -676,7 +676,7 @@ namespace NXPMS.Data.Repositories.SecurityRepositories
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE public.syssctusr SET lck_enb=@lck_enb, lck_end=@lck_end ");
-            sb.Append("WHERE (LOWER(u.usr_nm) = LOWER(@usr_nm));");
+            sb.Append("WHERE (LOWER(usr_nm) = LOWER(@usr_nm));");
             string query = sb.ToString();
 
             await conn.OpenAsync();

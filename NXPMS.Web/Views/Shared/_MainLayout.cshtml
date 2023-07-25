@@ -9,7 +9,7 @@
     <meta name="keywords"   content="">
     <meta name="description"     content="">
     <meta name="robots" content="noindex,nofollow">
-    @*<title>Next HR</title>*@
+    <title>Next HR</title>
     <!-- Bootstrap CSS -->
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootrap Icons CSS -->
@@ -52,19 +52,19 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                         <!-- Logo icon -->
                         <b class="logo-icon ps-2">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            @*<img src="~/matrix/assets/images/logo-icon.png" alt="homepage" class="light-logo" />*@
+                            <img src="~/matrix/assets/images/logo-icon.png" alt="homepage" class="light-logo" />
 
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            @*<img src="~/matrix/assets/images/logo-text.png" alt="homepage" class="light-logo" />*@
+                            <img src="~/matrix/assets/images/logo-text.png" alt="homepage" class="light-logo" />
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
@@ -112,37 +112,39 @@
                                     <img src="~/matrix/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-user me-1 ms-1"></i>
-                                        My Profile
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-wallet me-1 ms-1"></i>
-                                        My Balance
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-email me-1 ms-1"></i>
-                                        Inbox
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-settings me-1 ms-1"></i> Account Setting
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <form method="post" asp-controller="Security" asp-action="Logout">
-                                            <button class="dropdown-item">
-                                                <i class="fa fa-power-off me-1 ms-1"></i>Logout
-                                            </button>
-                                        </form>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-user me-1 ms-1"></i>
+                                            My Profile
+                                        </a>
+                                        @*  <a class="dropdown-item" href="javascript:void(0)">
+            <i class="ti-wallet me-1 ms-1"></i>
+            My Balance
+        </a>
+        <a class="dropdown-item" href="javascript:void(0)">
+            <i class="ti-email me-1 ms-1"></i>
+            Inbox
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="javascript:void(0)">
+            <i class="ti-settings me-1 ms-1"></i> Account Setting
+        </a>*@
                                         <div class="dropdown-divider"></div>
-                                    }
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <form method="post" asp-controller="Security" asp-action="Logout">
+                                                <button class="dropdown-item">
+                                                    <i class="fa fa-power-off me-1 ms-1"></i>Logout
+                                                </button>
+                                            </form>
+                                            <div class="dropdown-divider"></div>
+                                        }
 
-                                    <div class="ps-4 p-10">
-                                        <a href="javascript:void(0)"
-                                           class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
-                                    </div>
+                                        @*<div class="ps-4 p-10">
+            <a href="javascript:void(0)"
+               class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
+        </div>*@
+                                    </li>
                                 </ul>
                             </li>
                             <!-- ============================================================== -->
@@ -172,70 +174,22 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" title="System"
-                               href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-desktop-mac"></i><span class="hide-menu"> System</span>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-controller="Home" asp-action="System" aria-expanded="false">
+                                <i class="mdi mdi-home"></i><span class="hide-menu">System</span>
                             </a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a asp-controller="Settings" asp-action="Index" class="sidebar-link" title="Settings">
-                                        <i class="mdi mdi-settings"></i><span class="hide-menu">
-                                            Settings
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a asp-controller="Security" asp-action="Index" class="sidebar-link" title="Security">
-                                        <i class="mdi mdi-shield"></i><span class="hide-menu">
-                                            Security
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" title="Employees Management"
-                               href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-folder-account"></i><span class="hide-menu"> Employees</span>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-controller="Employees" asp-action="Records" aria-expanded="false">
+                                <i class="mdi mdi-account-search"></i><span class="hide-menu">Employees</span>
                             </a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a asp-controller="Employees" asp-action="Records" class="sidebar-link" title="Employee Records Management">
-                                        <i class="mdi mdi-account-search"></i><span class="hide-menu">
-                                            Records
-                                        </span>
-                                    </a>
-                                </li>
-                                @*<li class="sidebar-item">
-                                    <a asp-controller="Employees" asp-action="Listing" class="sidebar-link" title="Listings">
-                                        <i class="mdi mdi-file-chart"></i><span class="hide-menu">
-                                            Listings
-                                        </span>
-                                    </a>
-                                </li>*@
-                            </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" title="Performance Management"
-                               href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu"> Performance</span>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-controller="PMS" asp-action="Appraisals" aria-expanded="false">
+                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Performance</span>
                             </a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a asp-controller="PMS" asp-action="Appraisals" class="sidebar-link" title="Appraisals">
-                                        <i class="mdi mdi-file-check"></i><span class="hide-menu">
-                                            Appraisals
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a asp-controller="PMS" asp-action="Settings" class="sidebar-link" title="Appraisal Settings">
-                                        <i class="mdi mdi-file-chart"></i><span class="hide-menu">
-                                            Settings
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>

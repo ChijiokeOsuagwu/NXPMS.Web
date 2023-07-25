@@ -20,10 +20,6 @@ namespace NXPMS.Base.Models.PMSModels
         public string ReviewMetricKpi { get; set; }
         public string ReviewMetricTarget { get; set; }
         public decimal ReviewMetricWeightage { get; set; }
-        public int? MetricAppraiserId { get; set; }
-        public string MetricAppraiserName { get; set; }
-        public string AppraiserDesignation { get; set; }
-        public string AppraiserRole { get; set; }
         public int? PrimaryAppraiserId { get; set; }
         public string PrimaryAppraiserName { get; set; }
         

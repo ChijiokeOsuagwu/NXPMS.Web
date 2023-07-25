@@ -44,13 +44,13 @@ namespace NXPMS.Data.Repositories.PMSRepositories
             return reviewTypesList;
         }
 
-        public async Task<IList<ApprovalRole>> GetAllApprovalRolesAsync()
+        public async Task<IList<AppraisalRecommendation>> GetAllRecommendationsAsync()
         {
-            List<ApprovalRole> approvalRolesList = new List<ApprovalRole>();
+            List<AppraisalRecommendation> recommendationsList = new List<AppraisalRecommendation>();
             var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT aprv_rl_id, aprv_rl_nm FROM public.pmsaprvrls ");
-            sb.Append("ORDER BY aprv_rl_nm;");
+            sb.Append("SELECT pms_rcmd_id, pms_rcmd_nm FROM public.pmssttrcmds ");
+            sb.Append("ORDER BY pms_rcmd_id;");
             string query = sb.ToString();
             await conn.OpenAsync();
             // Retrieve all rows
@@ -60,15 +60,15 @@ namespace NXPMS.Data.Repositories.PMSRepositories
                 var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    approvalRolesList.Add(new ApprovalRole()
+                    recommendationsList.Add(new AppraisalRecommendation()
                     {
-                        ApprovalRoleId = reader["aprv_rl_id"] == DBNull.Value ? 0 : (int)(reader["aprv_rl_id"]),
-                        ApprovalRoleName = reader["aprv_rl_nm"] == DBNull.Value ? string.Empty : (reader["aprv_rl_nm"]).ToString(),
+                        Id = reader["pms_rcmd_id"] == DBNull.Value ? 0 : (int)(reader["pms_rcmd_id"]),
+                        Description = reader["pms_rcmd_nm"] == DBNull.Value ? string.Empty : (reader["pms_rcmd_nm"]).ToString(),
                     });
                 }
             }
             await conn.CloseAsync();
-            return approvalRolesList;
+            return recommendationsList;
         }
     }
 }

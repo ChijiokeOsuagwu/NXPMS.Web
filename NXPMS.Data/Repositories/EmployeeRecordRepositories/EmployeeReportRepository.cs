@@ -80,6 +80,67 @@ namespace NXPMS.Data.Repositories.EmployeeRecordRepositories
             return employeeReportsList;
         }
 
+        public async Task<IList<EmployeeReport>> GetByReportsToIdAsync(int reportsToId)
+        {
+            if (reportsToId < 1) { throw new ArgumentNullException("The required parameter [ReportID] is null or has an invalid value."); }
+
+            List<EmployeeReport> employeeReportsList = new List<EmployeeReport>();
+            var conn = new NpgsqlConnection(_config.GetConnectionString("NxpmsConnection"));
+            string query = String.Empty;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT r.emp_rpt_id, r.emp_id, r.rpt_to_id, ");
+            sb.Append("r.rpt_dsg, r.strt_dt, r.ndt_dt, r.is_cur, r.mdb, ");
+            sb.Append("r.unit_cd, r.dept_cd, r.loc_id, r.ctb, r.mdt, r.ctt, ");
+            sb.Append("e.fullname AS emp_name, f.fullname AS rpt_to_name, ");
+            sb.Append("u.unit_nm, d.dept_nm, l.locname ");
+            sb.Append("FROM public.ermemprpts r ");
+            sb.Append("INNER JOIN public.ermempinf e ON e.empid = r.emp_id ");
+            sb.Append("INNER JOIN public.ermempinf f ON f.empid = r.rpt_to_id ");
+            sb.Append("LEFT JOIN public.syscfgunts u ON u.unit_cd = r.unit_cd ");
+            sb.Append("LEFT JOIN public.syscfgdpts d ON d.dept_cd = r.dept_cd ");
+            sb.Append("LEFT JOIN public.syscfglocs l ON l.locid = r.loc_id ");
+            sb.Append("WHERE (r.rpt_to_id = @rpt_to_id) ORDER BY r.emp_rpt_id; ");
+
+            query = sb.ToString();
+
+            await conn.OpenAsync();
+            // Retrieve all rows
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+            {
+                var rpt_to_id = cmd.Parameters.Add("@rpt_to_id", NpgsqlDbType.Integer);
+                await cmd.PrepareAsync();
+                rpt_to_id.Value = reportsToId;
+                var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    employeeReportsList.Add(new EmployeeReport()
+                    {
+                        EmployeeReportId = reader["emp_rpt_id"] == DBNull.Value ? 0 : (int)reader["emp_rpt_id"],
+                        EmployeeId = reader["emp_id"] == DBNull.Value ? 0 : (int)reader["emp_id"],
+                        EmployeeName = reader["emp_name"] == DBNull.Value ? string.Empty : (reader["emp_name"]).ToString(),
+                        ReportsToId = reader["rpt_to_id"] == DBNull.Value ? 0 : (int)reader["rpt_to_id"],
+                        ReportsToName = reader["rpt_to_name"] == DBNull.Value ? string.Empty : (reader["rpt_to_name"]).ToString(),
+                        ReportsToDesignation = reader["rpt_dsg"] == DBNull.Value ? string.Empty : (reader["rpt_dsg"]).ToString(),
+                        StartDate = reader["strt_dt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["strt_dt"],
+                        EndDate = reader["ndt_dt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["ndt_dt"],
+                        IsCurrent = reader["is_cur"] == DBNull.Value ? false : (bool)reader["is_cur"],
+                        ReportsToUnitCode = reader["unit_cd"] == DBNull.Value ? string.Empty : reader["unit_cd"].ToString(),
+                        ReportsToUnitName = reader["unit_nm"] == DBNull.Value ? string.Empty : reader["unit_nm"].ToString(),
+                        ReportsToDepartmentCode = reader["dept_cd"] == DBNull.Value ? string.Empty : reader["dept_cd"].ToString(),
+                        ReportsToDepartmentName = reader["dept_nm"] == DBNull.Value ? string.Empty : reader["dept_nm"].ToString(),
+                        ReportsToLocationId = reader["loc_id"] == DBNull.Value ? 0 : (int)reader["loc_id"],
+                        ReportsToLocationName = reader["locname"] == DBNull.Value ? string.Empty : reader["locname"].ToString(),
+                        CreatedBy = reader["ctb"] == DBNull.Value ? string.Empty : reader["ctb"].ToString(),
+                        CreatedTime = reader["ctt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["ctt"],
+                        ModifiedBy = reader["mdb"] == DBNull.Value ? string.Empty : reader["mdb"].ToString(),
+                        ModifiedTime = reader["mdt"] == DBNull.Value ? (DateTime?)null : (DateTime)reader["mdt"],
+                    });
+                }
+            }
+            await conn.CloseAsync();
+            return employeeReportsList;
+        }
+
         public async Task<IList<EmployeeReport>> GetByIdAsync(int employeeReportId)
         {
             if (employeeReportId < 1) { throw new ArgumentNullException("The required parameter [EmployeeReportID] is null or has an invalid value."); }

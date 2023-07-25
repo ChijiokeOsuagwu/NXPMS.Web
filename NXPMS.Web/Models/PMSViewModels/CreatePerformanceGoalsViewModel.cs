@@ -22,5 +22,12 @@ namespace NXPMS.Web.Models.PMSViewModels
         [Required]
         [Display(Name = "Performance Goal(s)")]
         public string PerformanceGoals { get; set; }
+
+        [Required]
+        [Display(Name = "Principal Appraiser")]
+        public int AppraiserID { get; set; }
+
+        [Display(Name = "Principal Appraiser")]
+        public string AppraiserName { get; set; }
     }
 }

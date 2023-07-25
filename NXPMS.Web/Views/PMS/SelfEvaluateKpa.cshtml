@@ -1,0 +1,92 @@
+﻿
+@model NXPMS.Web.Models.PMSViewModels.SelfEvaluateKpaViewModel
+<h4 class="mb-1">Self Evaluation: Key Performance Area (KPA)</h4>
+<hr />
+<div class="card mt-1" style="max-width:1000px">
+    <div class="card-header bg-info">
+        <h4 class="fw-bold text-white" style="font-size: 1.2rem;">KPA Evaluation Form</h4>
+    </div>
+    <div class="card-body bg-secondary">
+        @if (!String.IsNullOrEmpty(Model.ViewModelErrorMessage))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-x-circle"></i>
+                <span class="fw-bold">@Model.ViewModelErrorMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelSuccessMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i>
+                <span class="fw-bold">@Model.ViewModelSuccessMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.ViewModelWarningMessage))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span class="fw-bold">@Model.ViewModelWarningMessage</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    <form asp-controller="PMS" asp-action="SelfEvaluateKpa" method="post" autocomplete="off">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <input type="hidden" asp-for="ReviewYearID" />
+                <input type="hidden" asp-for="ReviewSessionID" />
+                <input type="hidden" asp-for="ReviewHeaderID" />
+                <input type="hidden" asp-for="ReviewMetricID" />
+                <input type="hidden" asp-for="ReviewResultID" />
+                <input type="hidden" asp-for="ReviewMetricTypeID" />
+                <input type="hidden" asp-for="AppraiserTypeID" />
+                <input type="hidden" asp-for="AppraiserID" />
+                <input type="hidden" asp-for="AppraiseeID" />
+                <input type="hidden" asp-for="ReviewMetricWeightage" />
+                <label class="form-label text-white fw-bold">Description</label>
+                <textarea asp-for="ReviewMetricDescription" class="form-control fw-bold" rows="3" style="font-size:1.0rem">@Model.ReviewMetricDescription</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label class="form-label text-white fw-bold">Measurement</label>
+                <textarea asp-for="ReviewMetricMeasurement" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricMeasurement</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label class="form-label text-white fw-bold">Target Achievement</label>
+                <textarea asp-for="ReviewMetricTarget" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricTarget</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label class="form-label text-white fw-bold">Actual Achievement</label>
+                <textarea asp-for="ActualAchievement" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.ReviewMetricTarget</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <label class="form-label text-white fw-bold">Appraiser Comment</label>
+                <textarea asp-for="AppraiserComment" class="form-control fw-bold" rows="2" style="font-size:1.0rem">@Model.AppraiserComment</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="form-label text-white fw-bold">Score</label>
+                <input asp-for="AppraiserScore" class="form-control fw-bold" type="number" min="1" max="100" />
+            </div>
+            <div class="col-md-10 mt-4 text-end">
+                <a asp-controller="PMS" asp-action="KpaEvaluationList" asp-route-id="@Model.ReviewHeaderID" asp-route-ad="@Model.AppraiserID" title="Back" class="btn btn-dark" style="width:100px">
+                    <span class="text-white fw-bold">Back</span>
+                </a>
+                @if (!Model.OperationIsSuccessful)
+                {
+                    <button type="submit" class="btn btn-info" title="Continue" style="width:200px"><span class="text-white">Continue</span></button>
+                }
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

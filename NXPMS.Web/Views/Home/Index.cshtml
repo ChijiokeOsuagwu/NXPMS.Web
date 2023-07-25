@@ -2,93 +2,76 @@
 <!-- Sales Cards  -->
 <!-- ============================================================== -->
     <div class="row">
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <a asp-controller="Employees" asp-action="Records">
-                <div class="card card-hover">
-                    <div class="box bg-cyan text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-folder-account"></i></h1>
-                        <h6 class="text-white">Employees Records</h6>
+        @if (User.IsInRole("ERMMNG") || User.IsInRole("XXACC"))
+        {
+            <!-- Column -->
+            <div class="col-md-6 col-lg-2 col-xlg-3">
+                <a asp-controller="Employees" asp-action="Records">
+                    <div class="card card-hover">
+                        <div class="box bg-cyan text-center">
+                            <h1 class="font-light text-white"><i class="mdi mdi-folder-account"></i></h1>
+                            <h6 class="text-white">Employees Records</h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <a asp-controller="Settings" asp-action="Index">
-                <div class="card card-hover">
-                    <div class="box bg-warning text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-settings"></i></h1>
-                        <h6 class="text-white">Settings</h6>
+                </a>
+            </div>
+        }
+        @if (User.IsInRole("PMSAPR") || User.IsInRole("PMSAPV") || User.IsInRole("XXACC"))
+        {
+            <!-- Column -->
+            <div class="col-md-6 col-lg-2 col-xlg-3">
+                <a asp-controller="PMS" asp-action="Appraisals">
+                    <div class="card card-hover">
+                        <div class="box bg-success text-center">
+                            <h1 class="font-light text-white"><i class="bi bi-ui-checks"></i></h1>
+                            <h6 class="text-white">Appraisal Process</h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <a asp-controller="Security" asp-action="Index">
-                <div class="card card-hover">
-                    <div class="box bg-danger text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-shield"></i></h1>
-                        <h6 class="text-white">Security</h6>
+                </a>
+            </div>
+        }
+        @if (User.IsInRole("PMSSTT") || User.IsInRole("XXACC"))
+        {
+            <!-- Column -->
+            <div class="col-md-6 col-lg-2 col-xlg-3">
+                <a asp-controller="PMS" asp-action="Settings">
+                    <div class="card card-hover">
+                        <div class="box bg-info text-center">
+                            <h1 class="font-light text-white"><i class="bi bi-ui-radios"></i></h1>
+                            <h6 class="text-white">Appraisal Settings</h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-info text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
-                    <h6 class="text-white">Full Width</h6>
-                </div>
+                </a>
             </div>
-        </div>
-        <!-- Column -->
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-danger text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
-                    <h6 class="text-white">Forms</h6>
-                </div>
+        }
+       
+        @if (User.IsInRole("GBSSTT")  || User.IsInRole("XXACC"))
+        {
+            <!-- Column -->
+            <div class="col-md-6 col-lg-2 col-xlg-3">
+                <a asp-controller="Settings" asp-action="Index">
+                    <div class="card card-hover">
+                        <div class="box bg-warning text-center">
+                            <h1 class="font-light text-white"><i class="mdi mdi-settings"></i></h1>
+                            <h6 class="text-white">System Settings</h6>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-info text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
-                    <h6 class="text-white">Buttons</h6>
-                </div>
+        }
+        @if (User.IsInRole("SCTADM")  || User.IsInRole("XXACC"))
+        {
+            <!-- Column -->
+            <div class="col-md-6 col-lg-2 col-xlg-3">
+                <a asp-controller="Security" asp-action="Index">
+                    <div class="card card-hover">
+                        <div class="box bg-danger text-center">
+                            <h1 class="font-light text-white"><i class="mdi mdi-shield"></i></h1>
+                            <h6 class="text-white">System Security</h6>
+                        </div>
+                    </div>
+                </a>
             </div>
+        }
+            <!-- Column -->
         </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-cyan text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
-                    <h6 class="text-white">Elements</h6>
-                </div>
-            </div>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-success text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-check"></i></h1>
-                    <h6 class="text-white">Calnedar</h6>
-                </div>
-            </div>
-        </div>
-        <!-- Column -->
-        <div class="col-md-6 col-lg-2 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-warning text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
-                    <h6 class="text-white">Errors</h6>
-                </div>
-            </div>
-        </div>
-        <!-- Column -->
-    </div>

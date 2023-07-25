@@ -235,6 +235,18 @@ namespace NXPMS.Base.Services
             return employeeReports;
         }
 
+        public async Task<List<EmployeeReport>> GetEmployeeReportsByReportsToIdAsync(int reportToId)
+        {
+            List<EmployeeReport> employeeReports = new List<EmployeeReport>();
+            var entities = await _employeeReportRepository.GetByReportsToIdAsync(reportToId);
+            if (entities != null && entities.Count > 0)
+            {
+                employeeReports = entities.ToList();
+            }
+            return employeeReports;
+        }
+
+
         public async Task<EmployeeReport> GetEmployeeReportByIdAsync(int employeeReportId)
         {
             EmployeeReport employeeReport = new EmployeeReport();

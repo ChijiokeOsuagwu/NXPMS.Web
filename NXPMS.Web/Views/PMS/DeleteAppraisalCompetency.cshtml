@@ -43,25 +43,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 mb-3">
+                <div class="col-md-2">
                     <label asp-for="ReviewMetricWeightage" class="form-label text-white fw-bold"></label>
                     <input asp-for="ReviewMetricWeightage" class="form-control" type="number" min="1.00" max="100.00" step="1" readonly="readonly"/>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label asp-for="MetricAppraiserName" class="form-label text-white fw-bold"></label>
-                    <input asp-for="MetricAppraiserName" class="form-control fw-bold" readonly="readonly" />
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="AppraiserDesignation" class="form-label text-white fw-bold"></label>
-                    <input asp-for="AppraiserDesignation" class="form-control" readonly="readonly">
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="AppraiserRole" class="form-label text-white fw-bold"></label>
-                    <input asp-for="AppraiserRole" class="form-control fw-bold" readonly="readonly"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-end">
+                <div class="col-md-10 text-end">
                     <a asp-controller="PMS" asp-action="MyAppraisalSteps" asp-route-id="@Model.ReviewSessionId" class="btn btn-dark" style="width: 100px" title="Back">
                         <span class="text-white">Back</span>
                     </a>

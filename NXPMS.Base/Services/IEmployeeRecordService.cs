@@ -26,6 +26,7 @@ namespace NXPMS.Base.Services
 
         #region Employee Reports Service Methods
         Task<List<EmployeeReport>> GetEmployeeReportsByEmployeeIdAsync(int employeeId);
+        Task<List<EmployeeReport>> GetEmployeeReportsByReportsToIdAsync(int reportToId);
         Task<EmployeeReport> GetEmployeeReportByIdAsync(int employeeReportId);
         Task<bool> AddEmployeeReportAsync(EmployeeReport employeeReport);
         #endregion

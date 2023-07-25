@@ -8,6 +8,7 @@ namespace NXPMS.Base.Models.PMSModels
     {
         public int ReviewHeaderID { get; set; }
         public int AppraiseeID { get; set; }
+        public int PrincipalAppraiserID { get; set; }
         public int ReviewSessionID { get; set; }
         public int CurrentStageID { get; set; }
         public int NextStageID { get; set; }
